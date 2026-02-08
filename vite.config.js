@@ -8,7 +8,7 @@ export default defineConfig({
     port: 5173,
     proxy: {
       "/api": {
-        target: "https://www.digitalevin.com",
+        target: "https://api.digitalevin.com",
         changeOrigin: true,
         secure: false,
       },
