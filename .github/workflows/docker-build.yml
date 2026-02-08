@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Kodu Al
+      - name: Fetch Repository
         uses: actions/checkout@v4
 
       - name: Docker Login
