@@ -12,23 +12,25 @@ jobs:
       - name: Fetch Repository
         uses: actions/checkout@v4
 
-      - name: Docker Login
-        run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+      - name: Login DockerHub
+        run: |
+          echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login \
+            -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
 
-      - name: Image Build
-        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/demodeploy-fe .
+      - name: Build & Push Image
+        run: |
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/demodeploy-fe:latest .
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/demodeploy-fe:latest
 
-      - name: DockerHub Push
-        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/demodeploy-fe
-
-      - name: Sunucuya Deploy
+      - name: Deploy on Server
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SERVER_IP }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            cd /opt/demorender
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/demodeploy-fe
             docker stop demo-fe || true
             docker rm demo-fe || true
-            docker run -d --name demo-fe -p 3000:80 ${{ secrets.DOCKERHUB_USERNAME }}/demodeploy-fe
+            docker run -d --name demo-fe -p 5173:80 ${{ secrets.DOCKERHUB_USERNAME }}/demodeploy-fe
