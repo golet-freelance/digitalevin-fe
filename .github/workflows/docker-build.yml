@@ -13,13 +13,13 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Docker Login
-        run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+        run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
       - name: Image Build
-        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/demodeploy-fe .
+        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/demodeploy-fe .
 
       - name: DockerHub Push
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/demodeploy-fe
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/demodeploy-fe
 
       - name: Sunucuya Deploy
         uses: appleboy/ssh-action@v1.0.3
@@ -28,7 +28,7 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            docker pull ${{ secrets.DOCKER_USERNAME }}/demodeploy-fe
+            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/demodeploy-fe
             docker stop demo-fe || true
             docker rm demo-fe || true
-            docker run -d --name demo-fe -p 3000:80 ${{ secrets.DOCKER_USERNAME }}/demodeploy-fe
+            docker run -d --name demo-fe -p 3000:80 ${{ secrets.DOCKERHUB_USERNAME }}/demodeploy-fe
