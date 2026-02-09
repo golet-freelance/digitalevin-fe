@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 import path from "node:path";
 
 const nextConfig: NextConfig = {
+  output: "standalone", // Required for Docker deployment
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "**" },
