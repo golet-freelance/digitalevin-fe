@@ -40,7 +40,7 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd /opt/digitalevin-f
+            cd /opt/digitalevin-fe
             # Pull the new image
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/digitalevin-fe:latest
             # Stop and remove the old container if it exists
