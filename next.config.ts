@@ -1,5 +1,4 @@
 import type { NextConfig } from "next";
-import path from "node:path";
 
 const nextConfig: NextConfig = {
   output: "standalone", // Required for Docker deployment
@@ -9,7 +8,6 @@ const nextConfig: NextConfig = {
       { protocol: "http", hostname: "**" },
     ],
   },
-  outputFileTracingRoot: path.resolve(__dirname, "../../"),
   typescript: { ignoreBuildErrors: true },
   eslint: { ignoreDuringBuilds: true },
 };
