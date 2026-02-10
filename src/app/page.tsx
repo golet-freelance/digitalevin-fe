@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, ChevronDown, Star, Zap, Palette, Code, ShoppingCart, Search, Megaphone, Check, TrendingUp, Clock, Users } from "lucide-react";
+import { ArrowRight, ArrowUpRight, ChevronDown, Star, Zap, Palette, Code, ShoppingCart, Search, Megaphone, Check, TrendingUp, Clock, Users, Database } from "lucide-react";
 import { FadeUp } from "@/components/animations";
 import { projects } from "@/lib/data";
 import { useState, useEffect, useRef, useCallback } from "react";
@@ -272,13 +272,12 @@ function Hero() {
                   {mockupScreens.map((screen, i) => (
                     <div
                       key={i}
-                      className={`absolute inset-0 bg-gradient-to-br ${screen.gradient} transition-all duration-700 ${
-                        i === activeScreen
-                          ? isTransitioning
-                            ? "mockup-exit"
-                            : "mockup-enter"
-                          : "opacity-0 pointer-events-none"
-                      }`}
+                      className={`absolute inset-0 bg-gradient-to-br ${screen.gradient} transition-all duration-700 ${i === activeScreen
+                        ? isTransitioning
+                          ? "mockup-exit"
+                          : "mockup-enter"
+                        : "opacity-0 pointer-events-none"
+                        }`}
                     >
                       {screen.content}
                     </div>
@@ -298,11 +297,10 @@ function Hero() {
                           setIsTransitioning(false);
                         }, 600);
                       }}
-                      className={`h-1.5 rounded-full transition-all duration-500 ${
-                        i === activeScreen
-                          ? "w-6 bg-electric glow-active"
-                          : "w-1.5 bg-muted-foreground/30 hover:bg-muted-foreground/50"
-                      }`}
+                      className={`h-1.5 rounded-full transition-all duration-500 ${i === activeScreen
+                        ? "w-6 bg-electric glow-active"
+                        : "w-1.5 bg-muted-foreground/30 hover:bg-muted-foreground/50"
+                        }`}
                     />
                   ))}
                   <span className="ml-3 text-[10px] text-muted-foreground font-medium">
@@ -464,50 +462,102 @@ function FeaturedProjects() {
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {featured.map((project, i) => (
             <FadeUp key={project.id} delay={i * 100}>
-              <Link href={`/works/${project.id}`} className="group block">
-                <div className="relative overflow-hidden rounded-2xl border border-border bg-card transition-all duration-500 hover:shadow-xl hover:shadow-black/5 dark:hover:shadow-white/5 hover:-translate-y-1">
-                  {/* Image placeholder */}
-                  <div
-                    className="relative h-56 overflow-hidden"
-                    style={{ backgroundColor: `${project.color}15` }}
-                  >
+              {project.externalUrl ? (
+                <a
+                  href={project.externalUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group block"
+                >
+                  <div className="relative overflow-hidden rounded-2xl border border-border bg-card transition-all duration-500 hover:shadow-xl hover:shadow-black/5 dark:hover:shadow-white/5 hover:-translate-y-1">
+                    {/* Image placeholder */}
                     <div
-                      className="absolute inset-0 transition-transform duration-500 group-hover:scale-110"
-                      style={{
-                        background: `linear-gradient(135deg, ${project.color}30, ${project.color}10)`,
-                      }}
-                    />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-40 h-28 rounded-xl border border-white/20 bg-white/10 backdrop-blur-sm flex items-center justify-center">
-                        <span className="text-sm font-semibold" style={{ color: project.color }}>
-                          {project.title}
-                        </span>
+                      className="relative h-56 overflow-hidden"
+                      style={{ backgroundColor: `${project.color}15` }}
+                    >
+                      <div
+                        className="absolute inset-0 transition-transform duration-500 group-hover:scale-110"
+                        style={{
+                          background: `linear-gradient(135deg, ${project.color}30, ${project.color}10)`,
+                        }}
+                      />
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="w-40 h-28 rounded-xl border border-white/20 bg-white/10 backdrop-blur-sm flex items-center justify-center">
+                          <span className="text-sm font-semibold" style={{ color: project.color }}>
+                            {project.title}
+                          </span>
+                        </div>
+                      </div>
+                      {/* Hover arrow */}
+                      <div className="absolute bottom-4 right-4 flex h-10 w-10 items-center justify-center rounded-xl bg-white/90 dark:bg-black/90 opacity-0 translate-y-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
+                        <ArrowUpRight size={16} />
                       </div>
                     </div>
-                    {/* Hover arrow */}
-                    <div className="absolute bottom-4 right-4 flex h-10 w-10 items-center justify-center rounded-xl bg-white/90 dark:bg-black/90 opacity-0 translate-y-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
-                      <ArrowUpRight size={16} />
-                    </div>
-                  </div>
-                  {/* Info */}
-                  <div className="p-5">
-                    <div className="flex items-center justify-between">
-                      <p className="text-xs font-medium text-muted-foreground">
-                        {project.sector}
+                    {/* Info */}
+                    <div className="p-5">
+                      <div className="flex items-center justify-between">
+                        <p className="text-xs font-medium text-muted-foreground">
+                          {project.sector}
+                        </p>
+                        <span className="rounded-full bg-electric/10 px-2.5 py-0.5 text-xs font-medium text-electric">
+                          {project.result}
+                        </span>
+                      </div>
+                      <h3 className="mt-2 text-lg font-semibold transition-colors group-hover:text-electric">
+                        {project.title}
+                      </h3>
+                      <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
+                        {project.description}
                       </p>
-                      <span className="rounded-full bg-electric/10 px-2.5 py-0.5 text-xs font-medium text-electric">
-                        {project.result}
-                      </span>
                     </div>
-                    <h3 className="mt-2 text-lg font-semibold transition-colors group-hover:text-electric">
-                      {project.title}
-                    </h3>
-                    <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
-                      {project.description}
-                    </p>
                   </div>
-                </div>
-              </Link>
+                </a>
+              ) : (
+                <Link href={`/works/${project.id}`} className="group block">
+                  <div className="relative overflow-hidden rounded-2xl border border-border bg-card transition-all duration-500 hover:shadow-xl hover:shadow-black/5 dark:hover:shadow-white/5 hover:-translate-y-1">
+                    {/* Image placeholder */}
+                    <div
+                      className="relative h-56 overflow-hidden"
+                      style={{ backgroundColor: `${project.color}15` }}
+                    >
+                      <div
+                        className="absolute inset-0 transition-transform duration-500 group-hover:scale-110"
+                        style={{
+                          background: `linear-gradient(135deg, ${project.color}30, ${project.color}10)`,
+                        }}
+                      />
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="w-40 h-28 rounded-xl border border-white/20 bg-white/10 backdrop-blur-sm flex items-center justify-center">
+                          <span className="text-sm font-semibold" style={{ color: project.color }}>
+                            {project.title}
+                          </span>
+                        </div>
+                      </div>
+                      {/* Hover arrow */}
+                      <div className="absolute bottom-4 right-4 flex h-10 w-10 items-center justify-center rounded-xl bg-white/90 dark:bg-black/90 opacity-0 translate-y-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
+                        <ArrowUpRight size={16} />
+                      </div>
+                    </div>
+                    {/* Info */}
+                    <div className="p-5">
+                      <div className="flex items-center justify-between">
+                        <p className="text-xs font-medium text-muted-foreground">
+                          {project.sector}
+                        </p>
+                        <span className="rounded-full bg-electric/10 px-2.5 py-0.5 text-xs font-medium text-electric">
+                          {project.result}
+                        </span>
+                      </div>
+                      <h3 className="mt-2 text-lg font-semibold transition-colors group-hover:text-electric">
+                        {project.title}
+                      </h3>
+                      <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
+                        {project.description}
+                      </p>
+                    </div>
+                  </div>
+                </Link>
+              )}
             </FadeUp>
           ))}
         </div>
@@ -524,6 +574,7 @@ function Services() {
     { icon: ShoppingCart, title: "E-commerce", desc: "High-converting online stores with seamless checkout, inventory management, and payment integrations." },
     { icon: Search, title: "SEO & Performance", desc: "Technical SEO, Core Web Vitals optimization, and performance tuning for maximum visibility." },
     { icon: Megaphone, title: "Branding", desc: "Brand identity, logo design, typography, and visual guidelines that make you memorable." },
+    { icon: Database, title: "ERP Solutions", desc: "Enterprise resource planning systems that streamline operations, automate workflows, and integrate all business processes." },
   ];
 
   return (
@@ -544,7 +595,7 @@ function Services() {
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((s, i) => (
             <FadeUp key={s.title} delay={i * 100}>
-              <div className="group rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:shadow-lg hover:shadow-black/5 dark:hover:shadow-white/5 hover:-translate-y-1">
+              <div className="group rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:shadow-lg hover:shadow-black/5 dark:hover:shadow-white/5 hover:-translate-y-1 h-full min-h-[200px] flex flex-col">
                 <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-electric/10 text-electric transition-colors group-hover:bg-electric group-hover:text-white">
                   <s.icon size={22} />
                 </div>
@@ -699,15 +750,13 @@ function FAQ() {
                   <span className="text-sm font-medium pr-4">{faq.q}</span>
                   <ChevronDown
                     size={18}
-                    className={`shrink-0 text-muted-foreground transition-transform duration-300 ${
-                      open === i ? "rotate-180" : ""
-                    }`}
+                    className={`shrink-0 text-muted-foreground transition-transform duration-300 ${open === i ? "rotate-180" : ""
+                      }`}
                   />
                 </button>
                 <div
-                  className={`overflow-hidden transition-all duration-300 ${
-                    open === i ? "max-h-40 pb-5" : "max-h-0"
-                  }`}
+                  className={`overflow-hidden transition-all duration-300 ${open === i ? "max-h-40 pb-5" : "max-h-0"
+                    }`}
                 >
                   <p className="px-5 text-sm leading-relaxed text-muted-foreground">
                     {faq.a}
