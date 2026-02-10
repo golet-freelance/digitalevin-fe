@@ -3,20 +3,25 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { Menu, X, Sun, Moon } from "lucide-react";
-
-const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/works", label: "Works" },
-  { href: "/services", label: "Services" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
-];
+import { useLanguage } from "@/contexts/LanguageContext";
+import { translations } from "@/lib/translations";
 
 export default function Navbar() {
+  const { language, setLanguage } = useLanguage();
+  const t = translations[language];
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dark, setDark] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [langMenuOpen, setLangMenuOpen] = useState(false);
+
+  const navLinks = [
+    { href: "/", label: t.nav.home },
+    { href: "/works", label: t.nav.works },
+    { href: "/services", label: t.nav.services },
+    { href: "/about", label: t.nav.about },
+    { href: "/contact", label: t.nav.contact },
+  ];
 
   useEffect(() => {
     const saved = localStorage.getItem("theme");
@@ -79,6 +84,51 @@ export default function Navbar() {
 
           {/* Right Side */}
           <div className="flex items-center gap-3">
+            {/* Language Switcher */}
+            <div className="relative">
+              <button
+                onClick={() => setLangMenuOpen(!langMenuOpen)}
+                className="flex h-9 items-center gap-1.5 rounded-xl px-3 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground hover:bg-muted"
+                aria-label="Change language"
+              >
+                <span className="uppercase">{language}</span>
+              </button>
+              
+              {/* Language Dropdown */}
+              {langMenuOpen && (
+                <>
+                  <div 
+                    className="fixed inset-0 z-10" 
+                    onClick={() => setLangMenuOpen(false)}
+                  />
+                  <div className="absolute right-0 top-full mt-2 z-20 min-w-[120px] overflow-hidden rounded-xl border border-border bg-background/95 backdrop-blur-xl shadow-lg">
+                    <button
+                      onClick={() => {
+                        setLanguage("en");
+                        setLangMenuOpen(false);
+                      }}
+                      className={`block w-full px-4 py-2.5 text-left text-sm font-medium transition-colors hover:bg-muted ${
+                        language === "en" ? "text-electric" : "text-foreground"
+                      }`}
+                    >
+                      English
+                    </button>
+                    <button
+                      onClick={() => {
+                        setLanguage("tr");
+                        setLangMenuOpen(false);
+                      }}
+                      className={`block w-full px-4 py-2.5 text-left text-sm font-medium transition-colors hover:bg-muted ${
+                        language === "tr" ? "text-electric" : "text-foreground"
+                      }`}
+                    >
+                      Türkçe
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
+
             <button
               onClick={toggleDark}
               className="flex h-9 w-9 items-center justify-center rounded-xl text-muted-foreground transition-colors hover:text-foreground hover:bg-muted"
@@ -90,7 +140,7 @@ export default function Navbar() {
               href="/contact"
               className="hidden rounded-2xl bg-electric px-5 py-2.5 text-sm font-medium text-white transition-all hover:bg-electric/90 hover:shadow-lg hover:shadow-electric/25 btn-shine lg:block"
             >
-              Free Consultation
+              {t.nav.freeConsultation}
             </Link>
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
@@ -122,7 +172,7 @@ export default function Navbar() {
               onClick={() => setMobileOpen(false)}
               className="mt-3 block rounded-2xl bg-electric px-5 py-3 text-center text-sm font-medium text-white"
             >
-              Free Consultation
+              {t.nav.freeConsultation}
             </Link>
           </div>
         </div>

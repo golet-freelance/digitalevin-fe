@@ -3,67 +3,45 @@
 import Link from "next/link";
 import { ArrowRight, Check, Zap, Rocket, Crown } from "lucide-react";
 import { FadeUp } from "@/components/animations";
-
-const packages = [
-  {
-    name: "Starter",
-    icon: Zap,
-    price: "$2,500",
-    period: "one-time",
-    timeline: "2-3 weeks",
-    desc: "Perfect for startups and small businesses that need a professional online presence.",
-    features: [
-      "Up to 5 pages",
-      "Responsive design",
-      "Basic SEO setup",
-      "Contact form integration",
-      "1 round of revisions",
-      "CMS integration",
-    ],
-    popular: false,
-  },
-  {
-    name: "Growth",
-    icon: Rocket,
-    price: "$5,000",
-    period: "one-time",
-    timeline: "4-6 weeks",
-    desc: "For growing brands that need advanced functionality and custom design.",
-    features: [
-      "Up to 12 pages",
-      "Custom UI/UX design",
-      "Advanced SEO & analytics",
-      "Blog / CMS system",
-      "3 rounds of revisions",
-      "Performance optimization",
-      "Social media integration",
-      "E-mail marketing setup",
-    ],
-    popular: true,
-  },
-  {
-    name: "Premium",
-    icon: Crown,
-    price: "$10,000+",
-    period: "custom",
-    timeline: "6-10 weeks",
-    desc: "Full-scale digital solutions for established brands with complex requirements.",
-    features: [
-      "Unlimited pages",
-      "Full custom design system",
-      "E-commerce integration",
-      "Custom animations & interactions",
-      "Unlimited revisions",
-      "A/B testing setup",
-      "Multi-language support",
-      "Dedicated project manager",
-      "3 months post-launch support",
-    ],
-    popular: false,
-  },
-];
+import { useLanguage } from "@/contexts/LanguageContext";
+import { translations } from "@/lib/translations";
 
 export default function ServicesPage() {
+  const { language } = useLanguage();
+  const t = translations[language];
+
+  const packages = [
+    {
+      name: t.services.packages.starter.name,
+      icon: Zap,
+      price: t.services.packages.starter.price,
+      period: t.services.packages.starter.period,
+      timeline: t.services.packages.starter.timeline,
+      desc: t.services.packages.starter.desc,
+      features: t.services.packages.starter.features,
+      popular: false,
+    },
+    {
+      name: t.services.packages.growth.name,
+      icon: Rocket,
+      price: t.services.packages.growth.price,
+      period: t.services.packages.growth.period,
+      timeline: t.services.packages.growth.timeline,
+      desc: t.services.packages.growth.desc,
+      features: t.services.packages.growth.features,
+      popular: true,
+    },
+    {
+      name: t.services.packages.premium.name,
+      icon: Crown,
+      price: t.services.packages.premium.price,
+      period: t.services.packages.premium.period,
+      timeline: t.services.packages.premium.timeline,
+      desc: t.services.packages.premium.desc,
+      features: t.services.packages.premium.features,
+      popular: false,
+    },
+  ];
   return (
     <div className="pt-20">
       {/* Header */}
@@ -71,13 +49,12 @@ export default function ServicesPage() {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <FadeUp>
             <div className="text-center">
-              <p className="text-sm font-medium text-electric">Services & Pricing</p>
+              <p className="text-sm font-medium text-electric">{t.services.hero.badge}</p>
               <h1 className="mt-2 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-                Solutions for Every Stage
+                {t.services.hero.title}
               </h1>
               <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
-                Transparent pricing, premium quality. Choose the package that fits your needs
-                or let&apos;s create a custom plan together.
+                {t.services.hero.subtitle}
               </p>
             </div>
           </FadeUp>
@@ -99,10 +76,9 @@ export default function ServicesPage() {
                 >
                   {pkg.popular && (
                     <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-electric px-4 py-1 text-xs font-medium text-white">
-                      Most Popular
+                      {t.services.cta.mostPopular}
                     </div>
-                  )}
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-electric/10 text-electric">
+                  )}                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-electric/10 text-electric">
                     <pkg.icon size={22} />
                   </div>
                   <h3 className="mt-4 text-xl font-bold">{pkg.name}</h3>
@@ -130,7 +106,7 @@ export default function ServicesPage() {
                         : "border border-border bg-background hover:bg-muted"
                     }`}
                   >
-                    Book a Call
+                    {t.services.cta.choosePlan}
                   </Link>
                 </div>
               </FadeUp>

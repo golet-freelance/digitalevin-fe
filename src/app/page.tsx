@@ -5,6 +5,8 @@ import { ArrowRight, ArrowUpRight, ChevronDown, Star, Zap, Palette, Code, Shoppi
 import { FadeUp } from "@/components/animations";
 import { projects } from "@/lib/data";
 import { useState, useEffect, useRef, useCallback } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { translations } from "@/lib/translations";
 
 /* ───── Mockup Screens Data ───── */
 const mockupScreens = [
@@ -147,6 +149,8 @@ const mockupScreens = [
 
 /* ───── Hero ───── */
 function Hero() {
+  const { language } = useLanguage();
+  const t = translations[language];
   const [activeScreen, setActiveScreen] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
@@ -203,20 +207,19 @@ function Hero() {
             <FadeUp>
               <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-muted/50 px-4 py-1.5 text-sm text-muted-foreground">
                 <Zap size={14} className="text-electric" />
-                Premium Web Agency
+                {t.home.hero.badge}
               </div>
             </FadeUp>
             <FadeUp delay={100}>
               <h1 className="text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl xl:text-7xl">
-                Digitalevin —{" "}
-                <span className="gradient-text">premium websites</span> that
-                convert.
+                {t.home.hero.title}{" "}
+                <span className="gradient-text">{t.home.hero.titleHighlight}</span>{" "}
+                {t.home.hero.titleEnd}
               </h1>
             </FadeUp>
             <FadeUp delay={200}>
               <p className="mt-6 max-w-lg text-lg leading-relaxed text-muted-foreground lg:text-xl">
-                UI/UX + fast development for brands that want to grow. We turn
-                your vision into high-performing digital experiences.
+                {t.home.hero.subtitle}
               </p>
             </FadeUp>
             <FadeUp delay={300}>
@@ -225,14 +228,14 @@ function Hero() {
                   href="/works"
                   className="inline-flex items-center gap-2 rounded-2xl bg-electric px-6 py-3.5 text-sm font-medium text-white transition-all hover:bg-electric/90 hover:shadow-lg hover:shadow-electric/25 btn-shine"
                 >
-                  View Work
+                  {t.home.hero.viewWorks}
                   <ArrowRight size={16} />
                 </Link>
                 <Link
                   href="/contact"
                   className="inline-flex items-center gap-2 rounded-2xl border border-border bg-background px-6 py-3.5 text-sm font-medium transition-all hover:bg-muted"
                 >
-                  Get a Quote
+                  {t.home.hero.cta}
                 </Link>
               </div>
             </FadeUp>
@@ -411,13 +414,15 @@ function Hero() {
 
 /* ───── Trusted By ───── */
 function TrustedBy() {
+  const { language } = useLanguage();
+  const t = translations[language];
   const logos = ["TechCorp", "FinanceHub", "GreenLife", "MediaPro", "StartupX", "DesignCo"];
   return (
     <section className="border-y border-border bg-muted/30 py-12">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <FadeUp>
           <p className="mb-8 text-center text-sm font-medium text-muted-foreground">
-            Trusted by innovative brands
+            {t.home.trustedBy}
           </p>
         </FadeUp>
         <div className="flex flex-wrap items-center justify-center gap-8 lg:gap-16">
@@ -436,6 +441,8 @@ function TrustedBy() {
 
 /* ───── Featured Projects ───── */
 function FeaturedProjects() {
+  const { language } = useLanguage();
+  const t = translations[language];
   const featured = projects.slice(0, 6);
 
   return (
@@ -444,16 +451,16 @@ function FeaturedProjects() {
         <FadeUp>
           <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
             <div>
-              <p className="text-sm font-medium text-electric">Portfolio</p>
+              <p className="text-sm font-medium text-electric">{t.home.showcase.badge}</p>
               <h2 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
-                Featured Projects
+                {t.home.showcase.title}
               </h2>
             </div>
             <Link
               href="/works"
               className="inline-flex items-center gap-1 text-sm font-medium text-electric hover:underline"
             >
-              View all projects
+              {t.home.showcase.viewAll}
               <ArrowRight size={14} />
             </Link>
           </div>
@@ -568,13 +575,15 @@ function FeaturedProjects() {
 
 /* ───── Services ───── */
 function Services() {
+  const { language } = useLanguage();
+  const t = translations[language];
   const services = [
-    { icon: Palette, title: "UI/UX Design", desc: "User-centered design that delights and converts. Research, wireframes, prototypes, and pixel-perfect interfaces." },
-    { icon: Code, title: "Web Development", desc: "Fast, scalable, and SEO-friendly websites built with Next.js, React, and modern frameworks." },
-    { icon: ShoppingCart, title: "E-commerce", desc: "High-converting online stores with seamless checkout, inventory management, and payment integrations." },
-    { icon: Search, title: "SEO & Performance", desc: "Technical SEO, Core Web Vitals optimization, and performance tuning for maximum visibility." },
-    { icon: Megaphone, title: "Branding", desc: "Brand identity, logo design, typography, and visual guidelines that make you memorable." },
-    { icon: Database, title: "ERP Solutions", desc: "Enterprise resource planning systems that streamline operations, automate workflows, and integrate all business processes." },
+    { icon: Palette, title: t.home.services.uiux.title, desc: t.home.services.uiux.desc },
+    { icon: Code, title: t.home.services.webdev.title, desc: t.home.services.webdev.desc },
+    { icon: ShoppingCart, title: t.home.services.ecommerce.title, desc: t.home.services.ecommerce.desc },
+    { icon: Search, title: t.home.services.seo.title, desc: t.home.services.seo.desc },
+    { icon: Megaphone, title: t.home.services.branding.title, desc: t.home.services.branding.desc },
+    { icon: Database, title: t.home.services.erp.title, desc: t.home.services.erp.desc },
   ];
 
   return (
@@ -582,12 +591,12 @@ function Services() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <FadeUp>
           <div className="text-center">
-            <p className="text-sm font-medium text-electric">What We Do</p>
+            <p className="text-sm font-medium text-electric">{t.home.services.badge}</p>
             <h2 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
-              Services
+              {t.home.services.title}
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-              End-to-end digital solutions to help your brand stand out and grow online.
+              {t.home.services.subtitle}
             </p>
           </div>
         </FadeUp>
@@ -614,11 +623,13 @@ function Services() {
 
 /* ───── Process ───── */
 function Process() {
+  const { language } = useLanguage();
+  const t = translations[language];
   const steps = [
-    { num: "01", title: "Discovery", desc: "Understanding your goals, audience, and market to build the right strategy." },
-    { num: "02", title: "Design", desc: "Crafting intuitive, beautiful interfaces that align with your brand identity." },
-    { num: "03", title: "Development", desc: "Building fast, scalable, SEO-optimized websites with clean code." },
-    { num: "04", title: "Launch", desc: "Testing, deploying, and optimizing for peak performance and conversions." },
+    { num: t.home.process.step1.num, title: t.home.process.step1.title, desc: t.home.process.step1.desc },
+    { num: t.home.process.step2.num, title: t.home.process.step2.title, desc: t.home.process.step2.desc },
+    { num: t.home.process.step3.num, title: t.home.process.step3.title, desc: t.home.process.step3.desc },
+    { num: t.home.process.step4.num, title: t.home.process.step4.title, desc: t.home.process.step4.desc },
   ];
 
   return (
@@ -626,9 +637,9 @@ function Process() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <FadeUp>
           <div className="text-center">
-            <p className="text-sm font-medium text-electric">How We Work</p>
+            <p className="text-sm font-medium text-electric">{t.home.process.badge}</p>
             <h2 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
-              Our Process
+              {t.home.process.title}
             </h2>
           </div>
         </FadeUp>
@@ -654,6 +665,8 @@ function Process() {
 
 /* ───── Testimonials ───── */
 function Testimonials() {
+  const { language } = useLanguage();
+  const t = translations[language];
   const testimonials = [
     {
       name: "Sarah Kim",
@@ -677,9 +690,9 @@ function Testimonials() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <FadeUp>
           <div className="text-center">
-            <p className="text-sm font-medium text-electric">Testimonials</p>
+            <p className="text-sm font-medium text-electric">{t.home.testimonials.badge}</p>
             <h2 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
-              What Our Clients Say
+              {t.home.testimonials.title}
             </h2>
           </div>
         </FadeUp>
@@ -716,14 +729,9 @@ function Testimonials() {
 
 /* ───── FAQ ───── */
 function FAQ() {
-  const faqs = [
-    { q: "How long does a typical project take?", a: "Most projects take 4-8 weeks from discovery to launch, depending on complexity. We'll give you a detailed timeline during our initial consultation." },
-    { q: "What technologies do you use?", a: "We primarily use Next.js, React, TypeScript, and Tailwind CSS. For e-commerce, we work with Shopify, WooCommerce, and custom solutions." },
-    { q: "Do you offer ongoing support?", a: "Yes! We offer maintenance packages that include updates, performance monitoring, security patches, and content changes." },
-    { q: "What's your pricing model?", a: "We offer fixed-price packages and custom quotes. Every project starts with a free consultation to understand your needs and budget." },
-    { q: "Can you redesign my existing website?", a: "Absolutely. We regularly help brands refresh their online presence while preserving SEO value and improving performance." },
-    { q: "Do you handle hosting and deployment?", a: "Yes. We set up optimized hosting on platforms like Vercel, AWS, or your preferred provider, and handle the entire deployment process." },
-  ];
+  const { language } = useLanguage();
+  const t = translations[language];
+  const faqs = t.home.faq.questions;
 
   const [open, setOpen] = useState<number | null>(null);
 
@@ -732,9 +740,9 @@ function FAQ() {
       <div className="mx-auto max-w-3xl px-6 lg:px-8">
         <FadeUp>
           <div className="text-center">
-            <p className="text-sm font-medium text-electric">FAQ</p>
+            <p className="text-sm font-medium text-electric">{t.home.faq.badge}</p>
             <h2 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
-              Frequently Asked Questions
+              {t.home.faq.title}
             </h2>
           </div>
         </FadeUp>
@@ -773,6 +781,8 @@ function FAQ() {
 
 /* ───── Final CTA ───── */
 function FinalCTA() {
+  const { language } = useLanguage();
+  const t = translations[language];
   return (
     <section className="py-24 lg:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -780,24 +790,24 @@ function FinalCTA() {
           <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-electric to-blue-700 p-12 text-center text-white lg:p-20">
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.15),transparent_50%)]" />
             <h2 className="relative text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
-              Let&apos;s build something great.
+              {t.home.finalCta.title}
             </h2>
             <p className="relative mx-auto mt-4 max-w-xl text-blue-100">
-              Ready to take your brand to the next level? Let&apos;s talk about your project.
+              {t.home.finalCta.subtitle}
             </p>
             <div className="relative mt-8 flex flex-wrap justify-center gap-4">
               <Link
                 href="/contact"
                 className="inline-flex items-center gap-2 rounded-2xl bg-white px-6 py-3.5 text-sm font-medium text-electric transition-all hover:bg-white/90 hover:shadow-lg"
               >
-                Start a Project
+                {t.home.finalCta.button1}
                 <ArrowRight size={16} />
               </Link>
               <Link
                 href="/works"
                 className="inline-flex items-center gap-2 rounded-2xl border border-white/30 px-6 py-3.5 text-sm font-medium text-white transition-all hover:bg-white/10"
               >
-                View Our Work
+                {t.home.finalCta.button2}
               </Link>
             </div>
           </div>

@@ -5,9 +5,21 @@ import { ArrowUpRight } from "lucide-react";
 import { FadeUp } from "@/components/animations";
 import { projects, categories } from "@/lib/data";
 import { useState } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { translations } from "@/lib/translations";
 
 export default function WorksPage() {
+  const { language } = useLanguage();
+  const t = translations[language];
   const [active, setActive] = useState("All");
+
+  const categoryMap: Record<string, string> = {
+    "All": t.works.filter.all,
+    "Corporate": t.works.filter.corporate,
+    "E-Commerce": t.works.filter.ecommerce,
+    "SaaS": t.works.filter.saas,
+    "Portfolio": t.works.filter.portfolio,
+  };
 
   const filtered = active === "All" ? projects : projects.filter((p) => p.category === active);
 
@@ -17,12 +29,12 @@ export default function WorksPage() {
       <section className="py-16 lg:py-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <FadeUp>
-            <p className="text-sm font-medium text-electric">Our Work</p>
+            <p className="text-sm font-medium text-electric">{t.works.hero.badge}</p>
             <h1 className="mt-2 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-              Selected Projects
+              {t.works.hero.title}
             </h1>
             <p className="mt-4 max-w-2xl text-lg text-muted-foreground">
-              A showcase of our best work across e-commerce, corporate, SaaS, and landing page projects.
+              {t.works.hero.subtitle}
             </p>
           </FadeUp>
 
@@ -38,7 +50,7 @@ export default function WorksPage() {
                       : "bg-muted text-muted-foreground hover:text-foreground hover:bg-muted/80"
                     }`}
                 >
-                  {cat}
+                  {categoryMap[cat] || cat}
                 </button>
               ))}
             </div>

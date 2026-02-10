@@ -1,28 +1,34 @@
+"use client";
+
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-
-const footerLinks = {
-  Navigation: [
-    { label: "Works", href: "/works" },
-    { label: "Services", href: "/services" },
-    { label: "About", href: "/about" },
-    { label: "Contact", href: "/contact" },
-  ],
-  Services: [
-    { label: "UI/UX Design", href: "/services" },
-    { label: "Web Development", href: "/services" },
-    { label: "E-commerce", href: "/services" },
-    { label: "SEO & Performance", href: "/services" },
-  ],
-  Social: [
-    { label: "Twitter / X", href: "#" },
-    { label: "LinkedIn", href: "#" },
-    { label: "Dribbble", href: "#" },
-    { label: "Instagram", href: "#" },
-  ],
-};
+import { useLanguage } from "@/contexts/LanguageContext";
+import { translations } from "@/lib/translations";
 
 export default function Footer() {
+  const { language } = useLanguage();
+  const t = translations[language];
+
+  const footerLinks = {
+    [t.footer.navigation]: [
+      { label: t.footer.links.works, href: "/works" },
+      { label: t.footer.links.services, href: "/services" },
+      { label: t.footer.links.about, href: "/about" },
+      { label: t.footer.links.contact, href: "/contact" },
+    ],
+    [t.footer.servicesTitle]: [
+      { label: t.footer.links.uiux, href: "/services" },
+      { label: t.footer.links.webdev, href: "/services" },
+      { label: t.footer.links.ecommerce, href: "/services" },
+      { label: t.footer.links.seo, href: "/services" },
+    ],
+    [t.footer.social]: [
+      { label: "Twitter / X", href: "#" },
+      { label: "LinkedIn", href: "#" },
+      { label: "Dribbble", href: "#" },
+      { label: "Instagram", href: "#" },
+    ],
+  };
   return (
     <footer className="border-t border-border bg-background">
       <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8 lg:py-20">
@@ -38,13 +44,13 @@ export default function Footer() {
               </span>
             </Link>
             <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-              Premium websites that convert. We craft digital experiences for brands that want to grow.
+              {t.footer.tagline}
             </p>
             <a
-              href="mailto:hello@digitalevin.com"
+              href={`mailto:${t.footer.email}`}
               className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-electric hover:underline"
             >
-              hello@digitalevin.com
+              {t.footer.email}
               <ArrowUpRight size={14} />
             </a>
           </div>
@@ -72,14 +78,14 @@ export default function Footer() {
         {/* Bottom */}
         <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-border pt-8 sm:flex-row">
           <p className="text-sm text-muted-foreground">
-            &copy; {new Date().getFullYear()} Digitalevin. All rights reserved.
+            &copy; {new Date().getFullYear()} Digitalevin. {t.footer.copyright}
           </p>
           <div className="flex gap-6">
             <Link href="#" className="text-sm text-muted-foreground hover:text-foreground">
-              Privacy Policy
+              {t.footer.privacy}
             </Link>
             <Link href="#" className="text-sm text-muted-foreground hover:text-foreground">
-              Terms of Service
+              {t.footer.terms}
             </Link>
           </div>
         </div>

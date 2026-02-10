@@ -17,6 +17,8 @@ import {
   Sparkles,
 } from "lucide-react";
 import { FadeUp } from "@/components/animations";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { translations } from "@/lib/translations";
 
 const steps = [
   { id: 1, label: "About You", icon: User },
@@ -76,6 +78,8 @@ const contactCards = [
 ];
 
 export default function ContactPage() {
+  const { language } = useLanguage();
+  const t = translations[language];
   const [currentStep, setCurrentStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
   const [focusedField, setFocusedField] = useState<string | null>(null);
@@ -116,14 +120,10 @@ export default function ContactPage() {
                 <Send size={22} className="text-electric" />
               </div>
               <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-                Let&apos;s Build Something{" "}
-                <span className="bg-gradient-to-r from-electric to-violet-500 bg-clip-text text-transparent">
-                  Amazing
-                </span>
+                {t.contact.hero.title}
               </h1>
               <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
-                Tell us about your project and we&apos;ll get back to you within
-                24 hours with a custom proposal.
+                {t.contact.hero.subtitle}
               </p>
             </div>
           </FadeUp>
