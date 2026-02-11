@@ -13,10 +13,14 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Digitalevin — Premium Websites That Convert",
+  title: "Digital Evin",
   description:
     "UI/UX design and fast web development for brands that want to grow. We build premium, conversion-focused websites.",
   keywords: ["web design", "UI/UX", "web development", "e-commerce", "agency", "Digitalevin"],
+  icons: {
+    icon: "/favicon.svg",
+    apple: "/apple-icon.svg",
+  },
 };
 
 export default function RootLayout({

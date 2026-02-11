@@ -35,7 +35,7 @@ export default function Footer() {
         <div className="grid gap-12 lg:grid-cols-4">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <Link href="/" className="flex items-center gap-2">
+            <Link href="/" className="flex items-center gap-2 cursor-pointer">
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-electric">
                 <span className="text-sm font-bold text-white">D</span>
               </div>
@@ -48,7 +48,7 @@ export default function Footer() {
             </p>
             <a
               href={`mailto:${t.footer.email}`}
-              className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-electric hover:underline"
+              className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-electric hover:underline cursor-pointer"
             >
               {t.footer.email}
               <ArrowUpRight size={14} />
@@ -64,7 +64,7 @@ export default function Footer() {
                   <li key={link.label}>
                     <Link
                       href={link.href}
-                      className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                      className="text-sm text-muted-foreground transition-colors hover:text-foreground cursor-pointer"
                     >
                       {link.label}
                     </Link>

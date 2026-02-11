@@ -14,7 +14,7 @@ export default function AboutPage() {
     { label: t.about.stats.projects, value: "120+" },
     { label: t.about.stats.clients, value: "80+" },
     { label: t.about.stats.experience, value: "6+" },
-    { label: t.about.stats.team, value: "12" },
+    { label: t.about.stats.team, value: "3" },
   ];
 
   const values = [
@@ -51,12 +51,9 @@ export default function AboutPage() {
   ];
 
   const team = [
-    { name: "Alex Morgan", role: t.about.team.founder, initial: "A" },
-    { name: "Jordan Lee", role: t.about.team.leadDev, initial: "J" },
-    { name: "Samira Patel", role: t.about.team.designer, initial: "S" },
-    { name: "Chris Wu", role: t.about.team.leadDev, initial: "C" },
-    { name: "Olivia Santos", role: t.about.team.projectMgr, initial: "O" },
-    { name: "Daniel Kim", role: "SEO & Growth Strategist", initial: "D" },
+    { name: "Ömer Ayık", role: t.about.team.frontEndDev, initial: "Ö" },
+    { name: "Ömer Kıncal", role: t.about.team.backendDev, initial: "Ö" },
+    { name: "Diyar Tümer", role: t.about.team.uiuxDesigner, initial: "D" },
   ];
   return (
     <div className="pt-20">
@@ -113,60 +110,10 @@ export default function AboutPage() {
                 </div>
               </div>
             </FadeUp>
-            <FadeUp delay={150}>
-              <div className="relative rounded-2xl border border-border bg-card p-8">
-                <div className="space-y-6">
-                  <div className="flex items-start gap-4">
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-electric/10 text-electric text-sm font-bold">
-                      01
-                    </div>
-                    <div>
-                      <h4 className="font-semibold">2019 — The Beginning</h4>
-                      <p className="mt-1 text-sm text-muted-foreground">
-                        Started as a solo freelancer with a focus on clean, modern web
-                        design.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-electric/10 text-electric text-sm font-bold">
-                      02
-                    </div>
-                    <div>
-                      <h4 className="font-semibold">2021 — Growing the Team</h4>
-                      <p className="mt-1 text-sm text-muted-foreground">
-                        Expanded to a team of 5, taking on larger projects and
-                        enterprise clients.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-electric/10 text-electric text-sm font-bold">
-                      03
-                    </div>
-                    <div>
-                      <h4 className="font-semibold">2023 — Full-Service Agency</h4>
-                      <p className="mt-1 text-sm text-muted-foreground">
-                        Launched branding, SEO, and e-commerce services. Reached 100+
-                        completed projects.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-electric/10 text-electric text-sm font-bold">
-                      04
-                    </div>
-                    <div>
-                      <h4 className="font-semibold">2025 — Today</h4>
-                      <p className="mt-1 text-sm text-muted-foreground">
-                        A 12-person team delivering premium digital experiences for
-                        brands worldwide.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </FadeUp>
+         {/* Bu Alana bir görsel ekleyeceğim */}
+         <div>
+          <img src="path/to/your/image.jpg" alt="Description of the image" />
+         </div>
           </div>
         </div>
       </section>
@@ -211,8 +158,7 @@ export default function AboutPage() {
                 {t.about.team.title}
               </h2>
               <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-                A diverse team of designers, developers, and strategists united by a
-                passion for creating exceptional digital experiences.
+                {t.about.team.subtitle}
               </p>
             </div>
           </FadeUp>
@@ -248,16 +194,16 @@ export default function AboutPage() {
               <div className="relative mt-8 flex flex-wrap justify-center gap-4">
                 <Link
                   href="/contact"
-                  className="inline-flex items-center gap-2 rounded-2xl bg-white px-6 py-3.5 text-sm font-medium text-electric transition-all hover:bg-white/90 hover:shadow-lg"
+                  className="inline-flex items-center gap-2 rounded-2xl bg-white px-6 py-3.5 text-sm font-medium text-electric transition-all hover:bg-white/90 hover:shadow-lg cursor-pointer"
                 >
                   {t.about.cta.button}
                   <ArrowRight size={16} />
                 </Link>
                 <Link
                   href="/works"
-                  className="inline-flex items-center gap-2 rounded-2xl border border-white/30 px-6 py-3.5 text-sm font-medium text-white transition-all hover:bg-white/10"
+                  className="inline-flex items-center gap-2 rounded-2xl border border-white/30 px-6 py-3.5 text-sm font-medium text-white transition-all hover:bg-white/10 cursor-pointer"
                 >
-                  View Our Work
+                  {t.home.hero.viewWorks}
                 </Link>
               </div>
             </div>

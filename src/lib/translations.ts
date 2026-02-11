@@ -113,6 +113,23 @@ export const translations = {
         badge: "Testimonials",
         title: "What Our Clients Say",
         subtitle: "Don't just take our word for it",
+        items: [
+          {
+            name: "Sarah Kim",
+            role: "CEO, Nova Store",
+            text: "Digitalevin delivered a website that exceeded all our expectations. Our conversion rate jumped by 35% within the first month.",
+          },
+          {
+            name: "Marcus Chen",
+            role: "CTO, FinFlow",
+            text: "The team's attention to detail and technical expertise is unmatched. They built a dashboard that our users absolutely love.",
+          },
+          {
+            name: "Elena Vasquez",
+            role: "Marketing Director, GreenPulse",
+            text: "From concept to launch, the process was seamless. Our new website generates 3x more qualified leads than before.",
+          },
+        ],
       },
       faq: {
         badge: "FAQ",
@@ -200,6 +217,10 @@ export const translations = {
       team: {
         badge: "Meet The Team",
         title: "The People Behind the Pixels",
+        subtitle: "A diverse team of designers, developers, and strategists united by a passion for creating exceptional digital experiences.",
+        frontEndDev: "Front End Developer",
+        backendDev: "Backend Developer",
+        uiuxDesigner: "UI/UX Designer",
         founder: "Founder & Creative Director",
         leadDev: "Lead Developer",
         designer: "UI/UX Designer",
@@ -274,6 +295,11 @@ export const translations = {
         getStarted: "Get Started",
         mostPopular: "Most Popular",
       },
+      custom: {
+        title: "Need something custom?",
+        subtitle: "Every project is unique. Let's discuss your specific requirements and create a tailored solution that perfectly fits your goals and budget.",
+        button: "Get a Custom Quote",
+      },
       addons: {
         badge: "Add-Ons",
         title: "Extra Services",
@@ -290,6 +316,112 @@ export const translations = {
         badge: "Get In Touch",
         title: "Let's Build Something Great",
         subtitle: "Have a project in mind? We'd love to hear about it. Fill out the form and we'll get back to you within 24 hours.",
+      },
+      intro: {
+        title: "Get in Touch",
+        subtitle: "Whether you have a detailed project brief or just a rough idea, we're here to help bring your vision to life.",
+      },
+      contactCards: {
+        email: "Email Us",
+        whatsapp: "WhatsApp",
+        location: "Location",
+      },
+      bookCall: {
+        title: "Book a Call",
+        subtitle: "Schedule a free 30-min consultation",
+        comingSoon: "Calendly integration coming soon",
+        button: "Schedule a Meeting",
+      },
+      social: {
+        title: "Follow Us",
+        platforms: {
+          twitter: "Twitter / X",
+          linkedin: "LinkedIn",
+          dribbble: "Dribbble",
+          instagram: "Instagram",
+        },
+      },
+      steps: {
+        aboutYou: "About You",
+        project: "Project",
+        details: "Details",
+      },
+      success: {
+        title: "Message Sent Successfully!",
+        subtitle: "Thank you for reaching out. We'll review your project and get back to you within 24 hours.",
+        button: "Send Another Message",
+      },
+      step1: {
+        title: "Tell us about yourself",
+        subtitle: "We'll use this to personalize your experience.",
+        fullName: "Full Name *",
+        fullNamePlaceholder: "John Doe",
+        email: "Email Address *",
+        emailPlaceholder: "john@company.com",
+      },
+      step2: {
+        title: "About your project",
+        subtitle: "Help us understand what you're looking for.",
+        projectType: "Project Type *",
+        budgetRange: "Budget Range *",
+      },
+      step3: {
+        title: "Final details",
+        subtitle: "Almost done! Share your timeline and any additional info.",
+        timeline: "Timeline",
+        projectDetails: "Project Details",
+        projectDetailsPlaceholder: "Tell us about your project goals, features, and any specific requirements...",
+      },
+      projectTypes: {
+        corporate: "Corporate Website",
+        ecommerce: "E-Commerce",
+        saas: "SaaS Platform",
+        mobileApp: "Mobile App",
+        landing: "Landing Page",
+        webApp: "Web Application",
+        branding: "Branding & Design",
+        other: "Other",
+      },
+      budgetRanges: {
+        range1: "$2,500 – $5,000",
+        range2: "$5,000 – $10,000",
+        range3: "$10,000 – $25,000",
+        range4: "$25,000 – $50,000",
+        range5: "$50,000+",
+      },
+      timelines: {
+        asap: "ASAP",
+        weeks: "1 – 2 Weeks",
+        month: "1 Month",
+        months: "2 – 3 Months",
+        flexible: "Flexible",
+      },
+      navigation: {
+        back: "Back",
+        continue: "Continue",
+        sendMessage: "Send Message",
+      },
+      faq: {
+        title: "Frequently Asked",
+        subtitle: "Quick answers to common questions about working with us.",
+        questions: [
+          {
+            q: "What happens after I submit the form?",
+            a: "We'll review your project details and get back to you within 24 hours to schedule a free consultation call.",
+          },
+          {
+            q: "Is the consultation free?",
+            a: "Yes, the initial consultation is completely free. We'll discuss your goals, timeline, and provide a custom proposal.",
+          },
+          {
+            q: "How long does a typical project take?",
+            a: "Most projects take 4-8 weeks from kickoff to launch, depending on scope and complexity.",
+          },
+          {
+            q: "Do you work with international clients?",
+            a: "Absolutely. We work with clients worldwide and are experienced in remote collaboration across time zones.",
+          },
+        ],
       },
       form: {
         name: "Name",
@@ -327,6 +459,21 @@ export const translations = {
       },
       viewProject: "View Project",
       livePreview: "Live Preview",
+      liveWebsite: "Live Website",
+      projects: {
+        steamcraft: {
+          sector: "Cleaning Services",
+          description: "Modern, elegant website for a premium San Francisco cleaning service specializing in car seat and carpet cleaning.",
+        },
+        yagiz: {
+          sector: "Agriculture & Livestock",
+          description: "Professional corporate website for a leading livestock and agriculture business, showcasing quality and sustainability.",
+        },
+        alparslan: {
+          sector: "Technology & Services",
+          description: "Cutting-edge technology company website with modern design, showcasing innovative solutions and services.",
+        },
+      },
     },
     // Project Detail
     projectDetail: {
@@ -353,7 +500,7 @@ export const translations = {
     // Footer
     footer: {
       tagline: "Dönüşüm sağlayan premium web siteleri. Büyümek isteyen markalar için dijital deneyimler yaratıyoruz.",
-      email: "merhaba@digitalevin.com",
+      email: "dijitaleviniz@gmail.com",
       navigation: "Menü",
       servicesTitle: "Hizmetler",
       social: "Sosyal Medya",
@@ -454,6 +601,23 @@ export const translations = {
         badge: "Referanslar",
         title: "Müşterilerimiz Ne Diyor",
         subtitle: "Sadece bizim sözümüze güvenmeyin",
+        items: [
+          {
+            name: "Sarah Kim",
+            role: "CEO, Nova Store",
+            text: "Digitalevin beklentilerimizi aşan bir web sitesi teslim etti. Dönüşüm oranımız ilk ay içinde %35 arttı.",
+          },
+          {
+            name: "Marcus Chen",
+            role: "CTO, FinFlow",
+            text: "Ekibin detaylara gösterdiği özen ve teknik uzmanlığı eşsiz. Kullanıcılarımızın kesinlikle sevdiği bir kontrol paneli oluşturdular.",
+          },
+          {
+            name: "Elena Vasquez",
+            role: "Pazarlama Direktörü, GreenPulse",
+            text: "Konseptten lansmanıa kadar süreç kusursuzdu. Yeni web sitemiz öncekine göre 3 kat daha fazla nitelikli müşteri adayı oluşturuyor.",
+          },
+        ],
       },
       faq: {
         badge: "SSS",
@@ -541,6 +705,10 @@ export const translations = {
       team: {
         badge: "Ekibimizle Tanışın",
         title: "Piksellerin Arkasındaki İnsanlar",
+        subtitle: "Olağanüstü dijital deneyimler yaratma tutkusuyla birleşen çeşitli bir tasarımcı, geliştirici ve stratejist ekibi.",
+        frontEndDev: "Ön Yüz Geliştirici",
+        backendDev: "Arka Yüz Geliştirici",
+        uiuxDesigner: "UI/UX Tasarımcı",
         founder: "Kurucu & Kreatif Direktör",
         leadDev: "Baş Geliştirici",
         designer: "UI/UX Tasarımcı",
@@ -615,6 +783,11 @@ export const translations = {
         getStarted: "Başlayın",
         mostPopular: "En Popüler",
       },
+      custom: {
+        title: "Özel bir çözüm mü gerekiyor?",
+        subtitle: "Her proje benzersizdir. Özel gereksinimlerinizi konuşalım ve hedeflerinize ve bütçenize mükemmel uyacak özel bir çözüm oluşturalım.",
+        button: "Özel Teklif Alın",
+      },
       addons: {
         badge: "Ek Hizmetler",
         title: "Ekstra Hizmetler",
@@ -632,6 +805,112 @@ export const translations = {
         title: "Harika Bir Şeyler İnşa Edelim",
         subtitle: "Aklınızda bir proje mi var? Bunu duymayı çok isteriz. Formu doldurun, 24 saat içinde size geri döneceğiz.",
       },
+      intro: {
+        title: "İletişime Geçin",
+        subtitle: "Detaylı bir proje özetiniz veya sadece kaba bir fikriniz olsun, vizyonunuzu hayata geçirmenize yardımcı olmak için buradayız.",
+      },
+      contactCards: {
+        email: "E-posta Gönderin",
+        whatsapp: "WhatsApp",
+        location: "Konum",
+      },
+      bookCall: {
+        title: "Görüşme Planlayın",
+        subtitle: "Ücretsiz 30 dakikalık danışmanlık planlayın",
+        comingSoon: "Calendly entegrasyonu yakında geliyor",
+        button: "Toplantı Planlayın",
+      },
+      social: {
+        title: "Bizi Takip Edin",
+        platforms: {
+          twitter: "Twitter / X",
+          linkedin: "LinkedIn",
+          dribbble: "Dribbble",
+          instagram: "Instagram",
+        },
+      },
+      steps: {
+        aboutYou: "Hakkınızda",
+        project: "Proje",
+        details: "Detaylar",
+      },
+      success: {
+        title: "Mesaj Başarıyla Gönderildi!",
+        subtitle: "Bize ulaştığınız için teşekkür ederiz. Projenizi inceleyip 24 saat içinde size geri döneceğiz.",
+        button: "Başka Mesaj Gönder",
+      },
+      step1: {
+        title: "Kendinizden bahsedin",
+        subtitle: "Deneyiminizi kişiselleştirmek için bunu kullanacağız.",
+        fullName: "Ad Soyad *",
+        fullNamePlaceholder: "Ahmet Yılmaz",
+        email: "E-posta Adresi *",
+        emailPlaceholder: "ahmet@sirket.com",
+      },
+      step2: {
+        title: "Projeniz hakkında",
+        subtitle: "Ne aradığınızı anlamamıza yardımcı olun.",
+        projectType: "Proje Türü *",
+        budgetRange: "Bütçe Aralığı *",
+      },
+      step3: {
+        title: "Son detaylar",
+        subtitle: "Neredeyse bitti! Zaman çizelgenizi ve ek bilgileri paylaşın.",
+        timeline: "Zaman Çizelgesi",
+        projectDetails: "Proje Detayları",
+        projectDetailsPlaceholder: "Proje hedefleriniz, özellikler ve özel gereksinimler hakkında bize bilgi verin...",
+      },
+      projectTypes: {
+        corporate: "Kurumsal Web Sitesi",
+        ecommerce: "E-Ticaret",
+        saas: "SaaS Platform",
+        mobileApp: "Mobil Uygulama",
+        landing: "Açılış Sayfası",
+        webApp: "Web Uygulaması",
+        branding: "Markalaşma & Tasarım",
+        other: "Diğer",
+      },
+      budgetRanges: {
+        range1: "₺75.000 – ₺150.000",
+        range2: "₺150.000 – ₺300.000",
+        range3: "₺300.000 – ₺750.000",
+        range4: "₺750.000 – ₺1.500.000",
+        range5: "₺1.500.000+",
+      },
+      timelines: {
+        asap: "En Kısa Sürede",
+        weeks: "1 – 2 Hafta",
+        month: "1 Ay",
+        months: "2 – 3 Ay",
+        flexible: "Esnek",
+      },
+      navigation: {
+        back: "Geri",
+        continue: "Devam Et",
+        sendMessage: "Mesaj Gönder",
+      },
+      faq: {
+        title: "Sıkça Sorulanlar",
+        subtitle: "Bizimle çalışma hakkında sık sorulan soruların hızlı yanıtları.",
+        questions: [
+          {
+            q: "Formu gönderdikten sonra ne olur?",
+            a: "Proje detaylarınızı inceleyip ücretsiz bir danışmanlık görüşmesi planlamak için 24 saat içinde size geri döneceğiz.",
+          },
+          {
+            q: "Danışmanlık ücretsiz mi?",
+            a: "Evet, ilk danışmanlık tamamen ücretsizdir. Hedeflerinizi, zaman çizelgenizi tartışacak ve özel bir teklif sunacağız.",
+          },
+          {
+            q: "Tipik bir proje ne kadar sürer?",
+            a: "Çoğu proje, kapsam ve karmaşıklığa bağlı olarak başlangıçtan lansmanıa 4-8 hafta sürer.",
+          },
+          {
+            q: "Uluslararası müşterilerle çalışıyor musunuz?",
+            a: "Kesinlikle. Dünya çapında müşterilerle çalışıyoruz ve farklı zaman dilimlerinde uzaktan işbirliği konusunda deneyimliyiz.",
+          },
+        ],
+      },
       form: {
         name: "Ad Soyad",
         namePlaceholder: "Ahmet Yılmaz",
@@ -646,7 +925,7 @@ export const translations = {
       },
       info: {
         email: "E-posta Gönderin",
-        emailValue: "merhaba@digitalevin.com",
+        emailValue: "dijitaleviniz@gmail.com",
         phone: "Bizi Arayın",
         phoneValue: "+90 (555) 123-4567",
         social: "Bizi Takip Edin",
@@ -668,6 +947,21 @@ export const translations = {
       },
       viewProject: "Projeyi Görüntüle",
       livePreview: "Canlı Önizleme",
+      liveWebsite: "Canlı Web Sitesi",
+      projects: {
+        steamcraft: {
+          sector: "Temizlik Hizmetleri",
+          description: "San Francisco'da araba koltuğu ve halı temizliğinde uzmanlaşmış premium temizlik hizmeti için modern, zarif web sitesi.",
+        },
+        yagiz: {
+          sector: "Tarım & Hayvancılık",
+          description: "Kalite ve sürdürülebilirliği sergileyen önde gelen bir hayvancılık ve tarım işletmesi için profesyonel kurumsal web sitesi.",
+        },
+        alparslan: {
+          sector: "Teknoloji & Hizmetler",
+          description: "Modern tasarımla yenilikçi çözümleri ve hizmetleri sergileyen son teknoloji şirket web sitesi.",
+        },
+      },
     },
     // Project Detail
     projectDetail: {

@@ -100,7 +100,7 @@ export default function ServicesPage() {
 
                   <Link
                     href="/contact"
-                    className={`mt-8 block rounded-2xl py-3 text-center text-sm font-medium transition-all ${
+                    className={`mt-8 block rounded-2xl py-3 text-center text-sm font-medium transition-all cursor-pointer ${
                       pkg.popular
                         ? "bg-electric text-white hover:bg-electric/90 hover:shadow-lg hover:shadow-electric/25 btn-shine"
                         : "border border-border bg-background hover:bg-muted"
@@ -121,17 +121,16 @@ export default function ServicesPage() {
           <FadeUp>
             <div className="text-center">
               <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-                Need something custom?
+                {t.services.custom.title}
               </h2>
               <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-                Every project is unique. Let&apos;s discuss your specific requirements and create a
-                tailored solution that perfectly fits your goals and budget.
+                {t.services.custom.subtitle}
               </p>
               <Link
                 href="/contact"
-                className="mt-8 inline-flex items-center gap-2 rounded-2xl bg-electric px-6 py-3.5 text-sm font-medium text-white transition-all hover:bg-electric/90 hover:shadow-lg hover:shadow-electric/25 btn-shine"
+                className="mt-8 inline-flex items-center gap-2 rounded-2xl bg-electric px-6 py-3.5 text-sm font-medium text-white transition-all hover:bg-electric/90 hover:shadow-lg hover:shadow-electric/25 btn-shine cursor-pointer"
               >
-                Get a Custom Quote
+                {t.services.custom.button}
                 <ArrowRight size={16} />
               </Link>
             </div>

@@ -5,8 +5,12 @@ import { useParams } from "next/navigation";
 import { ArrowLeft, ArrowRight, ExternalLink, Gauge, TrendingUp, Users, Clock } from "lucide-react";
 import { FadeUp } from "@/components/animations";
 import { projects } from "@/lib/data";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { translations } from "@/lib/translations";
 
 export default function CaseStudyPage() {
+  const { language } = useLanguage();
+  const t = translations[language];
   const { id } = useParams();
   const project = projects.find((p) => p.id === id);
   const currentIndex = projects.findIndex((p) => p.id === id);
@@ -18,7 +22,7 @@ export default function CaseStudyPage() {
         <div className="text-center">
           <h1 className="text-2xl font-bold">Project not found</h1>
           <Link href="/works" className="mt-4 inline-flex items-center gap-2 text-electric hover:underline">
-            <ArrowLeft size={16} /> Back to Works
+            <ArrowLeft size={16} /> {t.works.hero.badge}
           </Link>
         </div>
       </div>
@@ -53,7 +57,7 @@ export default function CaseStudyPage() {
               href="/works"
               className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
-              <ArrowLeft size={14} /> Back to Works
+              <ArrowLeft size={14} /> {t.works.hero.badge}
             </Link>
           </FadeUp>
 
@@ -98,9 +102,9 @@ export default function CaseStudyPage() {
           <div className="grid gap-16 lg:grid-cols-2">
             <FadeUp>
               <div>
-                <p className="text-sm font-medium text-electric">The Problem</p>
+                <p className="text-sm font-medium text-electric">{t.projectDetail.challenge}</p>
                 <h2 className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl">
-                  The Challenge
+                  {t.projectDetail.challenge}
                 </h2>
                 <p className="mt-4 text-muted-foreground leading-relaxed">
                   The client&apos;s existing website was outdated, slow, and not optimized for conversions.
@@ -117,9 +121,9 @@ export default function CaseStudyPage() {
 
             <FadeUp delay={100}>
               <div>
-                <p className="text-sm font-medium text-electric">The Solution</p>
+                <p className="text-sm font-medium text-electric">{t.projectDetail.solution}</p>
                 <h2 className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl">
-                  Our Approach
+                  {t.projectDetail.solution}
                 </h2>
                 <p className="mt-4 text-muted-foreground leading-relaxed">
                   We conducted in-depth user research and competitive analysis to inform a complete
@@ -142,9 +146,9 @@ export default function CaseStudyPage() {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <FadeUp>
             <div className="text-center">
-              <p className="text-sm font-medium text-electric">The Results</p>
+              <p className="text-sm font-medium text-electric">{t.projectDetail.results}</p>
               <h2 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
-                Impact & Metrics
+                {t.projectDetail.results}
               </h2>
             </div>
           </FadeUp>
@@ -172,7 +176,7 @@ export default function CaseStudyPage() {
           <div className="grid gap-16 lg:grid-cols-2">
             <FadeUp>
               <div>
-                <p className="text-sm font-medium text-electric">What We Delivered</p>
+                <p className="text-sm font-medium text-electric">{t.projectDetail.overview}</p>
                 <h2 className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl">
                   Deliverables
                 </h2>
@@ -193,9 +197,9 @@ export default function CaseStudyPage() {
 
             <FadeUp delay={100}>
               <div>
-                <p className="text-sm font-medium text-electric">Built With</p>
+                <p className="text-sm font-medium text-electric">{t.projectDetail.tech}</p>
                 <h2 className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl">
-                  Tech Stack
+                  {t.projectDetail.tech}
                 </h2>
                 <div className="mt-6 flex flex-wrap gap-3">
                   {techStack.map((tech) => (
@@ -218,7 +222,7 @@ export default function CaseStudyPage() {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <FadeUp>
             <div className="flex flex-col items-center text-center">
-              <p className="text-sm text-muted-foreground">Next Project</p>
+              <p className="text-sm text-muted-foreground">{t.projectDetail.nextProject}</p>
               <Link
                 href={`/works/${nextProject.id}`}
                 className="group mt-4 inline-flex items-center gap-3 text-3xl font-bold tracking-tight transition-colors hover:text-electric sm:text-4xl"

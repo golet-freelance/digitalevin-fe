@@ -20,57 +20,57 @@ import { FadeUp } from "@/components/animations";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { translations } from "@/lib/translations";
 
-const steps = [
-  { id: 1, label: "About You", icon: User },
-  { id: 2, label: "Project", icon: Briefcase },
-  { id: 3, label: "Details", icon: Sparkles },
+const steps = (t: any) => [
+  { id: 1, label: t.contact.steps.aboutYou, icon: User },
+  { id: 2, label: t.contact.steps.project, icon: Briefcase },
+  { id: 3, label: t.contact.steps.details, icon: Sparkles },
 ];
 
-const projectTypes = [
-  "Corporate Website",
-  "E-Commerce",
-  "SaaS Platform",
-  "Mobile App",
-  "Landing Page",
-  "Web Application",
-  "Branding & Design",
-  "Other",
+const projectTypes = (t: any) => [
+  t.contact.projectTypes.corporate,
+  t.contact.projectTypes.ecommerce,
+  t.contact.projectTypes.saas,
+  t.contact.projectTypes.mobileApp,
+  t.contact.projectTypes.landing,
+  t.contact.projectTypes.webApp,
+  t.contact.projectTypes.branding,
+  t.contact.projectTypes.other,
 ];
 
-const budgetRanges = [
-  "$2,500 – $5,000",
-  "$5,000 – $10,000",
-  "$10,000 – $25,000",
-  "$25,000 – $50,000",
-  "$50,000+",
+const budgetRanges = (t: any) => [
+  t.contact.budgetRanges.range1,
+  t.contact.budgetRanges.range2,
+  t.contact.budgetRanges.range3,
+  t.contact.budgetRanges.range4,
+  t.contact.budgetRanges.range5,
 ];
 
-const timelines = [
-  "ASAP",
-  "1 – 2 Weeks",
-  "1 Month",
-  "2 – 3 Months",
-  "Flexible",
+const timelines = (t: any) => [
+  t.contact.timelines.asap,
+  t.contact.timelines.weeks,
+  t.contact.timelines.month,
+  t.contact.timelines.months,
+  t.contact.timelines.flexible,
 ];
 
-const contactCards = [
+const contactCards = (t: any) => [
   {
     icon: Mail,
-    label: "Email Us",
+    label: t.contact.contactCards.email,
     value: "hello@digitalevin.com",
     href: "mailto:hello@digitalevin.com",
     color: "from-electric to-blue-600",
   },
   {
     icon: MessageCircle,
-    label: "WhatsApp",
+    label: t.contact.contactCards.whatsapp,
     value: "+1 (555) 123-4567",
     href: "https://wa.me/15551234567",
     color: "from-emerald-500 to-green-600",
   },
   {
     icon: MapPin,
-    label: "Location",
+    label: t.contact.contactCards.location,
     value: "San Francisco, CA",
     href: "#",
     color: "from-violet-500 to-purple-600",
@@ -84,6 +84,12 @@ export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const formRef = useRef<HTMLFormElement>(null);
+
+  const stepsArray = steps(t);
+  const projectTypesArray = projectTypes(t);
+  const budgetRangesArray = budgetRanges(t);
+  const timelinesArray = timelines(t);
+  const contactCardsArray = contactCards(t);
 
   const [form, setForm] = useState({
     name: "",
@@ -137,16 +143,15 @@ export default function ContactPage() {
             {/* Left Column: Info + Cards */}
             <div className="lg:col-span-2">
               <FadeUp>
-                <h2 className="text-2xl font-bold">Get in Touch</h2>
+                <h2 className="text-2xl font-bold">{t.contact.intro.title}</h2>
                 <p className="mt-2 text-muted-foreground leading-relaxed">
-                  Whether you have a detailed project brief or just a rough
-                  idea, we&apos;re here to help bring your vision to life.
+                  {t.contact.intro.subtitle}
                 </p>
               </FadeUp>
 
               {/* Contact Cards */}
               <div className="mt-8 space-y-4">
-                {contactCards.map((card, i) => (
+                {contactCardsArray.map((card, i) => (
                   <FadeUp key={card.label} delay={i * 100}>
                     <a
                       href={card.href}
@@ -182,9 +187,9 @@ export default function ContactPage() {
                       <Calendar size={20} className="text-electric" />
                     </div>
                     <div>
-                      <h3 className="font-semibold">Book a Call</h3>
+                      <h3 className="font-semibold">{t.contact.bookCall.title}</h3>
                       <p className="text-sm text-muted-foreground">
-                        Schedule a free 30-min consultation
+                        {t.contact.bookCall.subtitle}
                       </p>
                     </div>
                   </div>
@@ -195,13 +200,13 @@ export default function ContactPage() {
                         className="mx-auto text-muted-foreground/50"
                       />
                       <p className="mt-2 text-xs text-muted-foreground">
-                        Calendly integration coming soon
+                        {t.contact.bookCall.comingSoon}
                       </p>
                     </div>
                   </div>
-                  <button className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-electric px-4 py-3 text-sm font-medium text-white transition-all hover:bg-electric/90 hover:shadow-lg hover:shadow-electric/25">
+                  <button className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-electric px-4 py-3 text-sm font-medium text-white transition-all hover:bg-electric/90 hover:shadow-lg hover:shadow-electric/25 cursor-pointer">
                     <Calendar size={16} />
-                    Schedule a Meeting
+                    {t.contact.bookCall.button}
                   </button>
                 </div>
               </FadeUp>
@@ -209,9 +214,9 @@ export default function ContactPage() {
               {/* Social */}
               <FadeUp delay={500}>
                 <div className="mt-8">
-                  <h3 className="text-sm font-semibold">Follow Us</h3>
+                  <h3 className="text-sm font-semibold">{t.contact.social.title}</h3>
                   <div className="mt-3 flex flex-wrap gap-2">
-                    {["Twitter / X", "LinkedIn", "Dribbble", "Instagram"].map(
+                    {[t.contact.social.platforms.twitter, t.contact.social.platforms.linkedin, t.contact.social.platforms.dribbble, t.contact.social.platforms.instagram].map(
                       (platform) => (
                         <a
                           key={platform}
@@ -240,11 +245,10 @@ export default function ContactPage() {
                         <div className="absolute -inset-2 animate-ping rounded-full bg-electric/10" />
                       </div>
                       <h3 className="mt-8 text-2xl font-bold">
-                        Message Sent Successfully!
+                        {t.contact.success.title}
                       </h3>
                       <p className="mt-2 max-w-sm text-muted-foreground">
-                        Thank you for reaching out. We&apos;ll review your
-                        project and get back to you within 24 hours.
+                        {t.contact.success.subtitle}
                       </p>
                       <button
                         onClick={() => {
@@ -259,9 +263,9 @@ export default function ContactPage() {
                             message: "",
                           });
                         }}
-                        className="mt-8 rounded-2xl border border-border px-6 py-2.5 text-sm font-medium transition-all hover:bg-muted"
+                        className="mt-8 rounded-2xl border border-border px-6 py-2.5 text-sm font-medium transition-all hover:bg-muted cursor-pointer"
                       >
-                        Send Another Message
+                        {t.contact.success.button}
                       </button>
                     </div>
                   ) : (
@@ -269,13 +273,13 @@ export default function ContactPage() {
                       {/* Step Indicator */}
                       <div className="mb-8">
                         <div className="flex items-center justify-between">
-                          {steps.map((step, i) => (
+                          {stepsArray.map((step, i) => (
                             <div key={step.id} className="flex items-center">
                               <button
                                 onClick={() => {
                                   if (step.id < currentStep) setCurrentStep(step.id);
                                 }}
-                                className={`flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-medium transition-all ${
+                                className={`flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-medium transition-all cursor-pointer ${
                                   step.id === currentStep
                                     ? "bg-electric/10 text-electric"
                                     : step.id < currentStep
@@ -302,7 +306,7 @@ export default function ContactPage() {
                                   {step.label}
                                 </span>
                               </button>
-                              {i < steps.length - 1 && (
+                              {i < stepsArray.length - 1 && (
                                 <div
                                   className={`mx-1 h-px w-8 sm:w-12 transition-colors ${
                                     step.id < currentStep
@@ -319,7 +323,7 @@ export default function ContactPage() {
                           <div
                             className="h-full rounded-full bg-gradient-to-r from-electric to-violet-500 transition-all duration-500 ease-out"
                             style={{
-                              width: `${((currentStep - 1) / (steps.length - 1)) * 100}%`,
+                              width: `${((currentStep - 1) / (stepsArray.length - 1)) * 100}%`,
                             }}
                           />
                         </div>
@@ -335,10 +339,10 @@ export default function ContactPage() {
                           }`}
                         >
                           <h3 className="text-lg font-semibold">
-                            Tell us about yourself
+                            {t.contact.step1.title}
                           </h3>
                           <p className="mt-1 text-sm text-muted-foreground">
-                            We&apos;ll use this to personalize your experience.
+                            {t.contact.step1.subtitle}
                           </p>
 
                           <div className="mt-6 space-y-5">
@@ -351,7 +355,7 @@ export default function ContactPage() {
                                     : ""
                                 }`}
                               >
-                                Full Name *
+                                {t.contact.step1.fullName}
                               </label>
                               <input
                                 id="name"
@@ -363,7 +367,7 @@ export default function ContactPage() {
                                 }
                                 onFocus={() => setFocusedField("name")}
                                 onBlur={() => setFocusedField(null)}
-                                placeholder="John Doe"
+                                placeholder={t.contact.step1.fullNamePlaceholder}
                                 className="w-full rounded-xl border border-border bg-background px-4 py-3.5 text-sm outline-none transition-all duration-300 focus:border-electric focus:ring-2 focus:ring-electric/20 focus:shadow-lg focus:shadow-electric/5"
                               />
                             </div>
@@ -376,7 +380,7 @@ export default function ContactPage() {
                                     : ""
                                 }`}
                               >
-                                Email Address *
+                                {t.contact.step1.email}
                               </label>
                               <input
                                 id="email"
@@ -388,7 +392,7 @@ export default function ContactPage() {
                                 }
                                 onFocus={() => setFocusedField("email")}
                                 onBlur={() => setFocusedField(null)}
-                                placeholder="john@company.com"
+                                placeholder={t.contact.step1.emailPlaceholder}
                                 className="w-full rounded-xl border border-border bg-background px-4 py-3.5 text-sm outline-none transition-all duration-300 focus:border-electric focus:ring-2 focus:ring-electric/20 focus:shadow-lg focus:shadow-electric/5"
                               />
                             </div>
@@ -404,26 +408,26 @@ export default function ContactPage() {
                           }`}
                         >
                           <h3 className="text-lg font-semibold">
-                            About your project
+                            {t.contact.step2.title}
                           </h3>
                           <p className="mt-1 text-sm text-muted-foreground">
-                            Help us understand what you&apos;re looking for.
+                            {t.contact.step2.subtitle}
                           </p>
 
                           <div className="mt-6 space-y-5">
                             <div>
                               <label className="mb-3 block text-sm font-medium">
-                                Project Type *
+                                {t.contact.step2.projectType}
                               </label>
                               <div className="grid grid-cols-2 gap-2">
-                                {projectTypes.map((type) => (
+                                {projectTypesArray.map((type) => (
                                   <button
                                     key={type}
                                     type="button"
                                     onClick={() =>
                                       updateField("projectType", type)
                                     }
-                                    className={`rounded-xl border px-3 py-2.5 text-left text-sm transition-all duration-200 ${
+                                    className={`rounded-xl border px-3 py-2.5 text-left text-sm transition-all duration-200 cursor-pointer ${
                                       form.projectType === type
                                         ? "border-electric bg-electric/10 text-electric font-medium shadow-sm"
                                         : "border-border hover:border-electric/30 hover:bg-electric/5"
@@ -437,17 +441,17 @@ export default function ContactPage() {
 
                             <div>
                               <label className="mb-3 block text-sm font-medium">
-                                Budget Range *
+                                {t.contact.step2.budgetRange}
                               </label>
                               <div className="flex flex-wrap gap-2">
-                                {budgetRanges.map((range) => (
+                                {budgetRangesArray.map((range) => (
                                   <button
                                     key={range}
                                     type="button"
                                     onClick={() =>
                                       updateField("budget", range)
                                     }
-                                    className={`rounded-xl border px-4 py-2.5 text-sm transition-all duration-200 ${
+                                    className={`rounded-xl border px-4 py-2.5 text-sm transition-all duration-200 cursor-pointer ${
                                       form.budget === range
                                         ? "border-electric bg-electric/10 text-electric font-medium shadow-sm"
                                         : "border-border hover:border-electric/30 hover:bg-electric/5"
@@ -470,33 +474,32 @@ export default function ContactPage() {
                           }`}
                         >
                           <h3 className="text-lg font-semibold">
-                            Final details
+                            {t.contact.step3.title}
                           </h3>
                           <p className="mt-1 text-sm text-muted-foreground">
-                            Almost done! Share your timeline and any additional
-                            info.
+                            {t.contact.step3.subtitle}
                           </p>
 
                           <div className="mt-6 space-y-5">
                             <div>
                               <label className="mb-3 block text-sm font-medium">
-                                Timeline
+                                {t.contact.step3.timeline}
                               </label>
                               <div className="flex flex-wrap gap-2">
-                                {timelines.map((t) => (
+                                {timelinesArray.map((tl) => (
                                   <button
-                                    key={t}
+                                    key={tl}
                                     type="button"
                                     onClick={() =>
-                                      updateField("timeline", t)
+                                      updateField("timeline", tl)
                                     }
-                                    className={`rounded-xl border px-4 py-2.5 text-sm transition-all duration-200 ${
-                                      form.timeline === t
+                                    className={`rounded-xl border px-4 py-2.5 text-sm transition-all duration-200 cursor-pointer ${
+                                      form.timeline === tl
                                         ? "border-electric bg-electric/10 text-electric font-medium shadow-sm"
                                         : "border-border hover:border-electric/30 hover:bg-electric/5"
                                     }`}
                                   >
-                                    {t}
+                                    {tl}
                                   </button>
                                 ))}
                               </div>
@@ -511,7 +514,7 @@ export default function ContactPage() {
                                     : ""
                                 }`}
                               >
-                                Project Details
+                                {t.contact.step3.projectDetails}
                               </label>
                               <textarea
                                 id="message"
@@ -522,7 +525,7 @@ export default function ContactPage() {
                                 }
                                 onFocus={() => setFocusedField("message")}
                                 onBlur={() => setFocusedField(null)}
-                                placeholder="Tell us about your project goals, features, and any specific requirements..."
+                                placeholder={t.contact.step3.projectDetailsPlaceholder}
                                 className="w-full resize-none rounded-xl border border-border bg-background px-4 py-3.5 text-sm outline-none transition-all duration-300 focus:border-electric focus:ring-2 focus:ring-electric/20 focus:shadow-lg focus:shadow-electric/5"
                               />
                             </div>
@@ -537,10 +540,10 @@ export default function ContactPage() {
                               onClick={() =>
                                 setCurrentStep((s) => Math.max(1, s - 1))
                               }
-                              className="flex items-center gap-2 rounded-xl border border-border px-5 py-2.5 text-sm font-medium transition-all hover:bg-muted"
+                              className="flex items-center gap-2 rounded-xl border border-border px-5 py-2.5 text-sm font-medium transition-all hover:bg-muted cursor-pointer"
                             >
                               <ArrowLeft size={16} />
-                              Back
+                              {t.contact.navigation.back}
                             </button>
                           ) : (
                             <div />
@@ -553,17 +556,17 @@ export default function ContactPage() {
                               onClick={() =>
                                 setCurrentStep((s) => Math.min(3, s + 1))
                               }
-                              className="flex items-center gap-2 rounded-xl bg-electric px-6 py-2.5 text-sm font-medium text-white transition-all hover:bg-electric/90 hover:shadow-lg hover:shadow-electric/25 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:shadow-none"
+                              className="flex items-center gap-2 rounded-xl bg-electric px-6 py-2.5 text-sm font-medium text-white transition-all hover:bg-electric/90 hover:shadow-lg hover:shadow-electric/25 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:shadow-none cursor-pointer"
                             >
-                              Continue
+                              {t.contact.navigation.continue}
                               <ArrowRight size={16} />
                             </button>
                           ) : (
                             <button
                               type="submit"
-                              className="flex items-center gap-2 rounded-xl bg-electric px-6 py-2.5 text-sm font-medium text-white transition-all hover:bg-electric/90 hover:shadow-lg hover:shadow-electric/25 btn-shine"
+                              className="flex items-center gap-2 rounded-2xl bg-electric px-6 py-2.5 text-sm font-medium text-white transition-all hover:bg-electric/90 hover:shadow-lg hover:shadow-electric/25 btn-shine cursor-pointer"
                             >
-                              Send Message
+                              {t.contact.navigation.sendMessage}
                               <Send size={16} />
                             </button>
                           )}
@@ -584,33 +587,16 @@ export default function ContactPage() {
           <FadeUp>
             <div className="text-center">
               <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-                Frequently Asked
+                {t.contact.faq.title}
               </h2>
               <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-                Quick answers to common questions about working with us.
+                {t.contact.faq.subtitle}
               </p>
             </div>
           </FadeUp>
 
           <div className="mx-auto mt-12 grid max-w-4xl gap-6 sm:grid-cols-2">
-            {[
-              {
-                q: "What happens after I submit the form?",
-                a: "We'll review your project details and get back to you within 24 hours to schedule a free consultation call.",
-              },
-              {
-                q: "Is the consultation free?",
-                a: "Yes, the initial consultation is completely free. We'll discuss your goals, timeline, and provide a custom proposal.",
-              },
-              {
-                q: "How long does a typical project take?",
-                a: "Most projects take 4-8 weeks from kickoff to launch, depending on scope and complexity.",
-              },
-              {
-                q: "Do you work with international clients?",
-                a: "Absolutely. We work with clients worldwide and are experienced in remote collaboration across time zones.",
-              },
-            ].map((faq, i) => (
+            {t.contact.faq.questions.map((faq, i) => (
               <FadeUp key={i} delay={i * 100}>
                 <div className="rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:border-electric/20 hover:shadow-md hover:shadow-electric/5">
                   <h3 className="font-semibold">{faq.q}</h3>

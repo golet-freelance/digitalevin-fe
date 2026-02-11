@@ -75,7 +75,7 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="rounded-xl px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground hover:bg-muted"
+                className="rounded-xl px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground hover:bg-muted cursor-pointer"
               >
                 {link.label}
               </Link>
@@ -88,7 +88,7 @@ export default function Navbar() {
             <div className="relative">
               <button
                 onClick={() => setLangMenuOpen(!langMenuOpen)}
-                className="flex h-9 items-center gap-1.5 rounded-xl px-3 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground hover:bg-muted"
+                className="flex h-9 items-center gap-1.5 rounded-xl px-3 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground hover:bg-muted cursor-pointer"
                 aria-label="Change language"
               >
                 <span className="uppercase">{language}</span>
@@ -107,7 +107,7 @@ export default function Navbar() {
                         setLanguage("en");
                         setLangMenuOpen(false);
                       }}
-                      className={`block w-full px-4 py-2.5 text-left text-sm font-medium transition-colors hover:bg-muted ${
+                      className={`block w-full px-4 py-2.5 text-left text-sm font-medium transition-colors hover:bg-muted cursor-pointer ${
                         language === "en" ? "text-electric" : "text-foreground"
                       }`}
                     >
@@ -118,7 +118,7 @@ export default function Navbar() {
                         setLanguage("tr");
                         setLangMenuOpen(false);
                       }}
-                      className={`block w-full px-4 py-2.5 text-left text-sm font-medium transition-colors hover:bg-muted ${
+                      className={`block w-full px-4 py-2.5 text-left text-sm font-medium transition-colors hover:bg-muted cursor-pointer ${
                         language === "tr" ? "text-electric" : "text-foreground"
                       }`}
                     >
@@ -131,20 +131,20 @@ export default function Navbar() {
 
             <button
               onClick={toggleDark}
-              className="flex h-9 w-9 items-center justify-center rounded-xl text-muted-foreground transition-colors hover:text-foreground hover:bg-muted"
+              className="flex h-9 w-9 items-center justify-center rounded-xl text-muted-foreground transition-colors hover:text-foreground hover:bg-muted cursor-pointer"
               aria-label="Toggle theme"
             >
                 {mounted ? (dark ? <Sun size={18} /> : <Moon size={18} />) : <div className="h-[18px] w-[18px]" />}
             </button>
             <Link
               href="/contact"
-              className="hidden rounded-2xl bg-electric px-5 py-2.5 text-sm font-medium text-white transition-all hover:bg-electric/90 hover:shadow-lg hover:shadow-electric/25 btn-shine lg:block"
+              className="hidden rounded-2xl bg-electric px-5 py-2.5 text-sm font-medium text-white transition-all hover:bg-electric/90 hover:shadow-lg hover:shadow-electric/25 btn-shine lg:block cursor-pointer"
             >
               {t.nav.freeConsultation}
             </Link>
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="flex h-9 w-9 items-center justify-center rounded-xl text-foreground lg:hidden"
+              className="flex h-9 w-9 items-center justify-center rounded-xl text-foreground lg:hidden cursor-pointer"
               aria-label="Toggle menu"
             >
               {mobileOpen ? <X size={20} /> : <Menu size={20} />}
@@ -162,7 +162,7 @@ export default function Navbar() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileOpen(false)}
-                className="block rounded-xl px-4 py-3 text-base font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                className="block rounded-xl px-4 py-3 text-base font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground cursor-pointer"
               >
                 {link.label}
               </Link>
@@ -170,7 +170,7 @@ export default function Navbar() {
             <Link
               href="/contact"
               onClick={() => setMobileOpen(false)}
-              className="mt-3 block rounded-2xl bg-electric px-5 py-3 text-center text-sm font-medium text-white"
+              className="mt-3 block rounded-2xl bg-electric px-5 py-3 text-center text-sm font-medium text-white cursor-pointer"
             >
               {t.nav.freeConsultation}
             </Link>

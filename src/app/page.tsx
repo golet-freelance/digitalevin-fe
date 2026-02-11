@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, ArrowUpRight, ChevronDown, Star, Zap, Palette, Code, ShoppingCart, Search, Megaphone, Check, TrendingUp, Clock, Users, Database } from "lucide-react";
 import { FadeUp } from "@/components/animations";
 import { projects } from "@/lib/data";
@@ -226,14 +227,14 @@ function Hero() {
               <div className="mt-8 flex flex-wrap gap-4">
                 <Link
                   href="/works"
-                  className="inline-flex items-center gap-2 rounded-2xl bg-electric px-6 py-3.5 text-sm font-medium text-white transition-all hover:bg-electric/90 hover:shadow-lg hover:shadow-electric/25 btn-shine"
+                  className="inline-flex items-center gap-2 rounded-2xl bg-electric px-6 py-3.5 text-sm font-medium text-white transition-all hover:bg-electric/90 hover:shadow-lg hover:shadow-electric/25 btn-shine cursor-pointer"
                 >
                   {t.home.hero.viewWorks}
                   <ArrowRight size={16} />
                 </Link>
                 <Link
                   href="/contact"
-                  className="inline-flex items-center gap-2 rounded-2xl border border-border bg-background px-6 py-3.5 text-sm font-medium transition-all hover:bg-muted"
+                  className="inline-flex items-center gap-2 rounded-2xl border border-border bg-background px-6 py-3.5 text-sm font-medium transition-all hover:bg-muted cursor-pointer"
                 >
                   {t.home.hero.cta}
                 </Link>
@@ -300,7 +301,7 @@ function Hero() {
                           setIsTransitioning(false);
                         }, 600);
                       }}
-                      className={`h-1.5 rounded-full transition-all duration-500 ${i === activeScreen
+                      className={`h-1.5 rounded-full transition-all duration-500 cursor-pointer ${i === activeScreen
                         ? "w-6 bg-electric glow-active"
                         : "w-1.5 bg-muted-foreground/30 hover:bg-muted-foreground/50"
                         }`}
@@ -477,25 +478,14 @@ function FeaturedProjects() {
                   className="group block"
                 >
                   <div className="relative overflow-hidden rounded-2xl border border-border bg-card transition-all duration-500 hover:shadow-xl hover:shadow-black/5 dark:hover:shadow-white/5 hover:-translate-y-1">
-                    {/* Image placeholder */}
-                    <div
-                      className="relative h-56 overflow-hidden"
-                      style={{ backgroundColor: `${project.color}15` }}
-                    >
-                      <div
-                        className="absolute inset-0 transition-transform duration-500 group-hover:scale-110"
-                        style={{
-                          background: `linear-gradient(135deg, ${project.color}30, ${project.color}10)`,
-                        }}
+                    <div className="relative h-56 overflow-hidden">
+                      <Image
+                        src={project.image}
+                        alt={project.title}
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-110"
                       />
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="w-40 h-28 rounded-xl border border-white/20 bg-white/10 backdrop-blur-sm flex items-center justify-center">
-                          <span className="text-sm font-semibold" style={{ color: project.color }}>
-                            {project.title}
-                          </span>
-                        </div>
-                      </div>
-                      {/* Hover arrow */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
                       <div className="absolute bottom-4 right-4 flex h-10 w-10 items-center justify-center rounded-xl bg-white/90 dark:bg-black/90 opacity-0 translate-y-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
                         <ArrowUpRight size={16} />
                       </div>
@@ -504,17 +494,17 @@ function FeaturedProjects() {
                     <div className="p-5">
                       <div className="flex items-center justify-between">
                         <p className="text-xs font-medium text-muted-foreground">
-                          {project.sector}
+                          {t.works.projects[project.sector as keyof typeof t.works.projects]?.sector || project.sector}
                         </p>
                         <span className="rounded-full bg-electric/10 px-2.5 py-0.5 text-xs font-medium text-electric">
-                          {project.result}
+                          {t.works[project.result as keyof typeof t.works] || project.result}
                         </span>
                       </div>
                       <h3 className="mt-2 text-lg font-semibold transition-colors group-hover:text-electric">
                         {project.title}
                       </h3>
                       <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
-                        {project.description}
+                        {t.works.projects[project.description as keyof typeof t.works.projects]?.description || project.description}
                       </p>
                     </div>
                   </div>
@@ -522,25 +512,14 @@ function FeaturedProjects() {
               ) : (
                 <Link href={`/works/${project.id}`} className="group block">
                   <div className="relative overflow-hidden rounded-2xl border border-border bg-card transition-all duration-500 hover:shadow-xl hover:shadow-black/5 dark:hover:shadow-white/5 hover:-translate-y-1">
-                    {/* Image placeholder */}
-                    <div
-                      className="relative h-56 overflow-hidden"
-                      style={{ backgroundColor: `${project.color}15` }}
-                    >
-                      <div
-                        className="absolute inset-0 transition-transform duration-500 group-hover:scale-110"
-                        style={{
-                          background: `linear-gradient(135deg, ${project.color}30, ${project.color}10)`,
-                        }}
+                    <div className="relative h-56 overflow-hidden">
+                      <Image
+                        src={project.image}
+                        alt={project.title}
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-110"
                       />
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="w-40 h-28 rounded-xl border border-white/20 bg-white/10 backdrop-blur-sm flex items-center justify-center">
-                          <span className="text-sm font-semibold" style={{ color: project.color }}>
-                            {project.title}
-                          </span>
-                        </div>
-                      </div>
-                      {/* Hover arrow */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
                       <div className="absolute bottom-4 right-4 flex h-10 w-10 items-center justify-center rounded-xl bg-white/90 dark:bg-black/90 opacity-0 translate-y-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
                         <ArrowUpRight size={16} />
                       </div>
@@ -549,17 +528,17 @@ function FeaturedProjects() {
                     <div className="p-5">
                       <div className="flex items-center justify-between">
                         <p className="text-xs font-medium text-muted-foreground">
-                          {project.sector}
+                          {t.works.projects[project.sector as keyof typeof t.works.projects]?.sector || project.sector}
                         </p>
                         <span className="rounded-full bg-electric/10 px-2.5 py-0.5 text-xs font-medium text-electric">
-                          {project.result}
+                          {t.works[project.result as keyof typeof t.works] || project.result}
                         </span>
                       </div>
                       <h3 className="mt-2 text-lg font-semibold transition-colors group-hover:text-electric">
                         {project.title}
                       </h3>
                       <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
-                        {project.description}
+                        {t.works.projects[project.description as keyof typeof t.works.projects]?.description || project.description}
                       </p>
                     </div>
                   </div>
@@ -667,23 +646,7 @@ function Process() {
 function Testimonials() {
   const { language } = useLanguage();
   const t = translations[language];
-  const testimonials = [
-    {
-      name: "Sarah Kim",
-      role: "CEO, Nova Store",
-      text: "Digitalevin delivered a website that exceeded all our expectations. Our conversion rate jumped by 35% within the first month.",
-    },
-    {
-      name: "Marcus Chen",
-      role: "CTO, FinFlow",
-      text: "The team's attention to detail and technical expertise is unmatched. They built a dashboard that our users absolutely love.",
-    },
-    {
-      name: "Elena Vasquez",
-      role: "Marketing Director, GreenPulse",
-      text: "From concept to launch, the process was seamless. Our new website generates 3x more qualified leads than before.",
-    },
-  ];
+  const testimonials = t.home.testimonials.items;
 
   return (
     <section className="bg-muted/30 py-24 lg:py-32">
@@ -753,7 +716,7 @@ function FAQ() {
               <div className="rounded-2xl border border-border bg-card transition-all">
                 <button
                   onClick={() => setOpen(open === i ? null : i)}
-                  className="flex w-full items-center justify-between p-5 text-left"
+                  className="flex w-full items-center justify-between px-5 py-4 text-left cursor-pointer"
                 >
                   <span className="text-sm font-medium pr-4">{faq.q}</span>
                   <ChevronDown

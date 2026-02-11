@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { FadeUp } from "@/components/animations";
 import { projects, categories } from "@/lib/data";
@@ -45,7 +46,7 @@ export default function WorksPage() {
                 <button
                   key={cat}
                   onClick={() => setActive(cat)}
-                  className={`rounded-xl px-4 py-2 text-sm font-medium transition-all ${active === cat
+                  className={`rounded-xl px-4 py-2 text-sm font-medium transition-all cursor-pointer ${active === cat
                       ? "bg-electric text-white shadow-lg shadow-electric/25"
                       : "bg-muted text-muted-foreground hover:text-foreground hover:bg-muted/80"
                     }`}
@@ -72,39 +73,30 @@ export default function WorksPage() {
                     className="group block"
                   >
                     <div className="relative overflow-hidden rounded-2xl border border-border bg-card transition-all duration-500 hover:shadow-xl hover:shadow-black/5 dark:hover:shadow-white/5 hover:-translate-y-1 hover:scale-[1.02]">
-                      <div
-                        className="relative h-56 overflow-hidden"
-                        style={{ backgroundColor: `${project.color}15` }}
-                      >
-                        <div
-                          className="absolute inset-0 transition-transform duration-700 group-hover:scale-110"
-                          style={{
-                            background: `linear-gradient(135deg, ${project.color}30, ${project.color}10)`,
-                          }}
+                      <div className="relative h-56 overflow-hidden">
+                        <Image
+                          src={project.image}
+                          alt={project.title}
+                          fill
+                          className="object-cover transition-transform duration-700 group-hover:scale-110"
                         />
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="w-44 h-32 rounded-xl border border-white/20 bg-white/10 backdrop-blur-sm flex items-center justify-center shadow-lg">
-                            <span className="text-sm font-bold" style={{ color: project.color }}>
-                              {project.title}
-                            </span>
-                          </div>
-                        </div>
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
                         <div className="absolute bottom-4 right-4 flex h-10 w-10 items-center justify-center rounded-xl bg-white/90 dark:bg-black/90 opacity-0 translate-y-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 shadow-lg">
                           <ArrowUpRight size={16} />
                         </div>
                       </div>
                       <div className="p-5">
                         <div className="flex items-center justify-between">
-                          <p className="text-xs font-medium text-muted-foreground">{project.sector}</p>
+                          <p className="text-xs font-medium text-muted-foreground">{t.works.projects[project.sector as keyof typeof t.works.projects]?.sector || project.sector}</p>
                           <span className="rounded-full bg-electric/10 px-2.5 py-0.5 text-xs font-medium text-electric">
-                            {project.result}
+                            {t.works[project.result as keyof typeof t.works] || project.result}
                           </span>
                         </div>
                         <h3 className="mt-2 text-lg font-semibold transition-colors group-hover:text-electric">
                           {project.title}
                         </h3>
                         <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
-                          {project.description}
+                          {t.works.projects[project.description as keyof typeof t.works.projects]?.description || project.description}
                         </p>
                       </div>
                     </div>
@@ -112,39 +104,30 @@ export default function WorksPage() {
                 ) : (
                   <Link href={`/works/${project.id}`} className="group block">
                     <div className="relative overflow-hidden rounded-2xl border border-border bg-card transition-all duration-500 hover:shadow-xl hover:shadow-black/5 dark:hover:shadow-white/5 hover:-translate-y-1 hover:scale-[1.02]">
-                      <div
-                        className="relative h-56 overflow-hidden"
-                        style={{ backgroundColor: `${project.color}15` }}
-                      >
-                        <div
-                          className="absolute inset-0 transition-transform duration-700 group-hover:scale-110"
-                          style={{
-                            background: `linear-gradient(135deg, ${project.color}30, ${project.color}10)`,
-                          }}
+                      <div className="relative h-56 overflow-hidden">
+                        <Image
+                          src={project.image}
+                          alt={project.title}
+                          fill
+                          className="object-cover transition-transform duration-700 group-hover:scale-110"
                         />
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="w-44 h-32 rounded-xl border border-white/20 bg-white/10 backdrop-blur-sm flex items-center justify-center shadow-lg">
-                            <span className="text-sm font-bold" style={{ color: project.color }}>
-                              {project.title}
-                            </span>
-                          </div>
-                        </div>
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
                         <div className="absolute bottom-4 right-4 flex h-10 w-10 items-center justify-center rounded-xl bg-white/90 dark:bg-black/90 opacity-0 translate-y-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 shadow-lg">
                           <ArrowUpRight size={16} />
                         </div>
                       </div>
                       <div className="p-5">
                         <div className="flex items-center justify-between">
-                          <p className="text-xs font-medium text-muted-foreground">{project.sector}</p>
+                          <p className="text-xs font-medium text-muted-foreground">{t.works.projects[project.sector as keyof typeof t.works.projects]?.sector || project.sector}</p>
                           <span className="rounded-full bg-electric/10 px-2.5 py-0.5 text-xs font-medium text-electric">
-                            {project.result}
+                            {t.works[project.result as keyof typeof t.works] || project.result}
                           </span>
                         </div>
                         <h3 className="mt-2 text-lg font-semibold transition-colors group-hover:text-electric">
                           {project.title}
                         </h3>
                         <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
-                          {project.description}
+                          {t.works.projects[project.description as keyof typeof t.works.projects]?.description || project.description}
                         </p>
                       </div>
                     </div>
