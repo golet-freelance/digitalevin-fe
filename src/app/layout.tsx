@@ -30,6 +30,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={inter.variable}>
+      <head>
+        {/* Preload critical images */}
+        <link rel="preload" as="image" href="/projects/about.png" />
+        <link rel="preload" as="image" href="/projects/alparslan-tekno.jpg" />
+        <link rel="preload" as="image" href="/projects/steamcraft-sf.jpg" />
+        <link rel="preload" as="image" href="/projects/yagiz-besicilik.jpg" />
+      </head>
       <body className="antialiased font-sans">
         <Providers>
           <Script
