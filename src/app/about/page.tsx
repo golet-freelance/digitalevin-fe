@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, Users, Target, Award, Heart, Globe, Lightbulb } from "lucide-react";
 import { FadeUp } from "@/components/animations";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -110,10 +111,17 @@ export default function AboutPage() {
                 </div>
               </div>
             </FadeUp>
-         {/* Bu Alana bir görsel ekleyeceğim */}
-         <div>
-          <img src="path/to/your/image.jpg" alt="Description of the image" />
-         </div>
+            <FadeUp delay={200}>
+              <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border bg-muted/30">
+                <Image
+                  src="/projects/about.png"
+                  alt={language === "tr" ? "Digitalevin Hakkında" : "About Digitalevin"}
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              </div>
+            </FadeUp>
           </div>
         </div>
       </section>
