@@ -364,6 +364,7 @@ export const translations = {
         subtitle: "Help us understand what you're looking for.",
         projectType: "Project Type *",
         budgetRange: "Budget Range *",
+        budgetRangePlaceholder: "e.g., $5,000 - $10,000",
       },
       step3: {
         title: "Final details",
@@ -852,6 +853,7 @@ export const translations = {
         subtitle: "Ne aradığınızı anlamamıza yardımcı olun.",
         projectType: "Proje Türü *",
         budgetRange: "Bütçe Aralığı *",
+        budgetRangePlaceholder: "Örn: ₺150.000 - ₺300.000",
       },
       step3: {
         title: "Son detaylar",

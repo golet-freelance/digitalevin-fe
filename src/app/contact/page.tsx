@@ -1,19 +1,18 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState } from "react";
 import {
   Mail,
   MapPin,
   MessageCircle,
+  Phone,
   Send,
   ArrowRight,
   ArrowLeft,
   Check,
-  Calendar,
   ChevronRight,
   User,
   Briefcase,
-  Clock,
   Sparkles,
 } from "lucide-react";
 import { FadeUp } from "@/components/animations";
@@ -45,33 +44,26 @@ const budgetRanges = (t: any) => [
   t.contact.budgetRanges.range5,
 ];
 
-const timelines = (t: any) => [
-  t.contact.timelines.asap,
-  t.contact.timelines.weeks,
-  t.contact.timelines.month,
-  t.contact.timelines.months,
-  t.contact.timelines.flexible,
-];
-
 const contactCards = (t: any) => [
   {
     icon: Mail,
     label: t.contact.contactCards.email,
-    value: "hello@digitalevin.com",
-    href: "mailto:hello@digitalevin.com",
+    value: "dijitaleviniz@gmail.com",
+    href: "mailto:dijitaleviniz@gmail.com",
     color: "from-electric to-blue-600",
   },
   {
-    icon: MessageCircle,
+    icon: Phone,
     label: t.contact.contactCards.whatsapp,
-    value: "+1 (555) 123-4567",
-    href: "https://wa.me/15551234567",
+    value: "0533 199 24 89\n 0553 176 74 03",
+    href: "https://wa.me/905331992489",
     color: "from-emerald-500 to-green-600",
+    multiline: true,
   },
   {
     icon: MapPin,
     label: t.contact.contactCards.location,
-    value: "San Francisco, CA",
+    value: "İstanbul, Bağcılar",
     href: "#",
     color: "from-violet-500 to-purple-600",
   },
@@ -83,12 +75,10 @@ export default function ContactPage() {
   const [currentStep, setCurrentStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
   const [focusedField, setFocusedField] = useState<string | null>(null);
-  const formRef = useRef<HTMLFormElement>(null);
 
   const stepsArray = steps(t);
   const projectTypesArray = projectTypes(t);
   const budgetRangesArray = budgetRanges(t);
-  const timelinesArray = timelines(t);
   const contactCardsArray = contactCards(t);
 
   const [form, setForm] = useState({
@@ -96,7 +86,6 @@ export default function ContactPage() {
     email: "",
     projectType: "",
     budget: "",
-    timeline: "",
     message: "",
   });
 
@@ -110,8 +99,33 @@ export default function ContactPage() {
     return true;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleWhatsAppSend = () => {
+    // WhatsApp mesaj içeriğini oluştur
+    const phoneNumber = "905331992489"; // 0533 199 24 89
+    
+    let message = "🌟 *Digitalevin'den İletişim Formu* 🌟\n\n";
+    message += "Merhaba! Web siteniz üzerinden iletişime geçmek istiyorum.\n\n";
+    message += "📋 *Bilgilerim:*\n";
+    message += `👤 *Ad Soyad:* ${form.name}\n`;
+    message += `📧 *E-posta:* ${form.email}\n\n`;
+    message += "🎯 *Proje Detayları:*\n";
+    message += `🔹 *Proje Türü:* ${form.projectType}\n`;
+    message += `💰 *Bütçe:* ${form.budget}\n\n`;
+    
+    if (form.message.trim()) {
+      message += "💬 *Mesajım:*\n";
+      message += `${form.message}\n\n`;
+    }
+    
+    message += "Bu proje için profesyonel destek almak istiyorum. Detaylı bilgi verebilir misiniz?";
+    
+    // WhatsApp URL'ini oluştur
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    
+    // Yeni sekmede WhatsApp'ı aç
+    window.open(whatsappUrl, "_blank");
+    
+    // Başarı mesajını göster
     setSubmitted(true);
   };
 
@@ -166,7 +180,7 @@ export default function ContactPage() {
                         <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
                           {card.label}
                         </p>
-                        <p className="mt-0.5 truncate font-semibold">
+                        <p className={`mt-0.5 font-semibold ${card.multiline ? 'whitespace-pre-line' : 'truncate'}`}>
                           {card.value}
                         </p>
                       </div>
@@ -179,40 +193,8 @@ export default function ContactPage() {
                 ))}
               </div>
 
-              {/* Book a Call */}
-              <FadeUp delay={400}>
-                <div className="mt-8 overflow-hidden rounded-2xl border border-border bg-gradient-to-br from-electric/5 via-violet-500/5 to-transparent p-6">
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-electric/10">
-                      <Calendar size={20} className="text-electric" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold">{t.contact.bookCall.title}</h3>
-                      <p className="text-sm text-muted-foreground">
-                        {t.contact.bookCall.subtitle}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="mt-4 flex h-32 items-center justify-center rounded-xl border border-dashed border-border bg-background/50">
-                    <div className="text-center">
-                      <Clock
-                        size={24}
-                        className="mx-auto text-muted-foreground/50"
-                      />
-                      <p className="mt-2 text-xs text-muted-foreground">
-                        {t.contact.bookCall.comingSoon}
-                      </p>
-                    </div>
-                  </div>
-                  <button className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-electric px-4 py-3 text-sm font-medium text-white transition-all hover:bg-electric/90 hover:shadow-lg hover:shadow-electric/25 cursor-pointer">
-                    <Calendar size={16} />
-                    {t.contact.bookCall.button}
-                  </button>
-                </div>
-              </FadeUp>
-
               {/* Social */}
-              <FadeUp delay={500}>
+              <FadeUp delay={400}>
                 <div className="mt-8">
                   <h3 className="text-sm font-semibold">{t.contact.social.title}</h3>
                   <div className="mt-3 flex flex-wrap gap-2">
@@ -239,16 +221,16 @@ export default function ContactPage() {
                   {submitted ? (
                     <div className="flex min-h-[500px] flex-col items-center justify-center text-center">
                       <div className="relative">
-                        <div className="flex h-20 w-20 items-center justify-center rounded-full bg-electric/10">
-                          <Check size={36} className="text-electric" />
+                        <div className="flex h-20 w-20 items-center justify-center rounded-full bg-emerald-500/10">
+                          <MessageCircle size={36} className="text-emerald-500" />
                         </div>
-                        <div className="absolute -inset-2 animate-ping rounded-full bg-electric/10" />
+                        <div className="absolute -inset-2 animate-ping rounded-full bg-emerald-500/10" />
                       </div>
                       <h3 className="mt-8 text-2xl font-bold">
-                        {t.contact.success.title}
+                        WhatsApp'a Yönlendirildiniz! 🎉
                       </h3>
                       <p className="mt-2 max-w-sm text-muted-foreground">
-                        {t.contact.success.subtitle}
+                        Mesajınız WhatsApp üzerinden gönderilmek üzere hazırlandı. Lütfen WhatsApp penceresini kontrol edin.
                       </p>
                       <button
                         onClick={() => {
@@ -259,13 +241,12 @@ export default function ContactPage() {
                             email: "",
                             projectType: "",
                             budget: "",
-                            timeline: "",
                             message: "",
                           });
                         }}
                         className="mt-8 rounded-2xl border border-border px-6 py-2.5 text-sm font-medium transition-all hover:bg-muted cursor-pointer"
                       >
-                        {t.contact.success.button}
+                        Yeni Form Oluştur
                       </button>
                     </div>
                   ) : (
@@ -329,7 +310,7 @@ export default function ContactPage() {
                         </div>
                       </div>
 
-                      <form ref={formRef} onSubmit={handleSubmit}>
+                      <div>
                         {/* Step 1: About You */}
                         <div
                           className={`transition-all duration-300 ${
@@ -439,28 +420,30 @@ export default function ContactPage() {
                               </div>
                             </div>
 
-                            <div>
-                              <label className="mb-3 block text-sm font-medium">
+                            <div className="group relative">
+                              <label
+                                htmlFor="budget"
+                                className={`mb-2 block text-sm font-medium transition-colors ${
+                                  focusedField === "budget"
+                                    ? "text-electric"
+                                    : ""
+                                }`}
+                              >
                                 {t.contact.step2.budgetRange}
                               </label>
-                              <div className="flex flex-wrap gap-2">
-                                {budgetRangesArray.map((range) => (
-                                  <button
-                                    key={range}
-                                    type="button"
-                                    onClick={() =>
-                                      updateField("budget", range)
-                                    }
-                                    className={`rounded-xl border px-4 py-2.5 text-sm transition-all duration-200 cursor-pointer ${
-                                      form.budget === range
-                                        ? "border-electric bg-electric/10 text-electric font-medium shadow-sm"
-                                        : "border-border hover:border-electric/30 hover:bg-electric/5"
-                                    }`}
-                                  >
-                                    {range}
-                                  </button>
-                                ))}
-                              </div>
+                              <input
+                                id="budget"
+                                type="text"
+                                required
+                                value={form.budget}
+                                onChange={(e) =>
+                                  updateField("budget", e.target.value)
+                                }
+                                onFocus={() => setFocusedField("budget")}
+                                onBlur={() => setFocusedField(null)}
+                                placeholder={t.contact.step2.budgetRangePlaceholder || "Örn: 5.000€ - 10.000€"}
+                                className="w-full rounded-xl border border-border bg-background px-4 py-3.5 text-sm outline-none transition-all duration-300 focus:border-electric focus:ring-2 focus:ring-electric/20 focus:shadow-lg focus:shadow-electric/5"
+                              />
                             </div>
                           </div>
                         </div>
@@ -481,30 +464,6 @@ export default function ContactPage() {
                           </p>
 
                           <div className="mt-6 space-y-5">
-                            <div>
-                              <label className="mb-3 block text-sm font-medium">
-                                {t.contact.step3.timeline}
-                              </label>
-                              <div className="flex flex-wrap gap-2">
-                                {timelinesArray.map((tl) => (
-                                  <button
-                                    key={tl}
-                                    type="button"
-                                    onClick={() =>
-                                      updateField("timeline", tl)
-                                    }
-                                    className={`rounded-xl border px-4 py-2.5 text-sm transition-all duration-200 cursor-pointer ${
-                                      form.timeline === tl
-                                        ? "border-electric bg-electric/10 text-electric font-medium shadow-sm"
-                                        : "border-border hover:border-electric/30 hover:bg-electric/5"
-                                    }`}
-                                  >
-                                    {tl}
-                                  </button>
-                                ))}
-                              </div>
-                            </div>
-
                             <div className="group relative">
                               <label
                                 htmlFor="message"
@@ -518,7 +477,7 @@ export default function ContactPage() {
                               </label>
                               <textarea
                                 id="message"
-                                rows={5}
+                                rows={10}
                                 value={form.message}
                                 onChange={(e) =>
                                   updateField("message", e.target.value)
@@ -563,15 +522,18 @@ export default function ContactPage() {
                             </button>
                           ) : (
                             <button
-                              type="submit"
-                              className="flex items-center gap-2 rounded-2xl bg-electric px-6 py-2.5 text-sm font-medium text-white transition-all hover:bg-electric/90 hover:shadow-lg hover:shadow-electric/25 btn-shine cursor-pointer"
+                              type="button"
+                              onClick={handleWhatsAppSend}
+                              disabled={!form.message.trim()}
+                              className="group relative flex items-center gap-2 overflow-hidden rounded-2xl bg-linear-to-r from-emerald-500 to-green-600 px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-emerald-500/30 transition-all duration-300 hover:shadow-xl hover:shadow-emerald-500/40 hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 cursor-pointer"
                             >
-                              {t.contact.navigation.sendMessage}
-                              <Send size={16} />
+                              <div className="absolute inset-0 bg-linear-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+                              <MessageCircle size={18} className="relative z-10" />
+                              <span className="relative z-10">WhatsApp ile Gönder</span>
                             </button>
                           )}
                         </div>
-                      </form>
+                      </div>
                     </>
                   )}
                 </div>
