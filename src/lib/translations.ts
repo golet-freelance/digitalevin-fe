@@ -969,7 +969,7 @@ export const translations = {
         },
         menuoner: {
           sector: "Restoran & Yemek",
-          description: "Online menü, rezervasyon sistemi ve olağanüstü yemek deneyimi için şık tasarıma sahip modern restoran web sitesi.",
+          description: "Online menü, Öneri sistemi ve olağanüstü yemek deneyimi için şık tasarıma sahip modern restoran web sitesi.",
         },
       },
     },

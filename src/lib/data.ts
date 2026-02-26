@@ -46,7 +46,7 @@ export const projects: Project[] = [
   },
   {
     id: "menuoner",
-    title: "Menuoner",
+    title: "Menü Öneri Uygulaması",
     category: "Corporate",
     sector: "menuoner",
     result: "liveWebsite",
