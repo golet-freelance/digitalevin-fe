@@ -785,7 +785,6 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <TrustedBy />
       <FeaturedProjects />
       <Services />
       <Process />

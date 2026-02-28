@@ -89,7 +89,7 @@ export default function WorksPage() {
                           <ArrowUpRight size={16} />
                         </div>
                       </div>
-                      <div className="p-5">
+                        <div className="p-5">
                         <div className="flex items-center justify-between">
                           <p className="text-xs font-medium text-muted-foreground">{t.works.projects[project.sector as keyof typeof t.works.projects]?.sector || project.sector}</p>
                           <span className="rounded-full bg-electric/10 px-2.5 py-0.5 text-xs font-medium text-electric">
@@ -97,7 +97,7 @@ export default function WorksPage() {
                           </span>
                         </div>
                         <h3 className="mt-2 text-lg font-semibold transition-colors group-hover:text-electric">
-                          {project.title}
+                          {t.works.projects[project.sector as keyof typeof t.works.projects]?.title || project.title}
                         </h3>
                         <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
                           {t.works.projects[project.description as keyof typeof t.works.projects]?.description || project.description}
@@ -111,7 +111,7 @@ export default function WorksPage() {
                       <div className="relative h-56 overflow-hidden">
                         <Image
                           src={project.image}
-                          alt={project.title}
+                          alt={t.works.projects[project.sector as keyof typeof t.works.projects]?.title || project.title}
                           fill
                           className="object-cover transition-transform duration-700 group-hover:scale-110"
                           loading={i < 3 ? "eager" : "lazy"}
@@ -132,7 +132,7 @@ export default function WorksPage() {
                           </span>
                         </div>
                         <h3 className="mt-2 text-lg font-semibold transition-colors group-hover:text-electric">
-                          {project.title}
+                          {t.works.projects[project.sector as keyof typeof t.works.projects]?.title || project.title}
                         </h3>
                         <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
                           {t.works.projects[project.description as keyof typeof t.works.projects]?.description || project.description}

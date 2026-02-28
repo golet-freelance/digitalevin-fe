@@ -37,7 +37,7 @@ export const translations = {
         title: "We Build",
         titleHighlight: "Premium Websites",
         titleEnd: "That Convert",
-        subtitle: "UI/UX design and fast web development for brands that want to grow. Launch your next project with us in weeks, not months.",
+        subtitle: "UI/UX design and fast web development for brands that want to grow. Launch your next project with us in days, not months.",
         cta: "Start Your Project",
         viewWorks: "View Our Works",
       },
@@ -463,20 +463,29 @@ export const translations = {
       liveWebsite: "Live Website",
       projects: {
         steamcraft: {
+          title: "Steam Craft SF",
           sector: "Cleaning Services",
           description: "Modern, elegant website for a premium San Francisco cleaning service specializing in car seat and carpet cleaning.",
         },
         yagiz: {
-          sector: "Agriculture & Livestock",
-          description: "Professional corporate website for a leading livestock and agriculture business, showcasing quality and sustainability.",
+          title: "Yagiz Livestock",
+          sector: "Sacrificial Livestock",
+          description: "Professional corporate website for a sacrificial livestock business, showcasing quality animal husbandry and Qurban services.",
         },
         alparslan: {
+          title: "Alparslan Tekno",
           sector: "Technology & Services",
           description: "Cutting-edge technology company website with modern design, showcasing innovative solutions and services.",
         },
         menuoner: {
+          title: "Menu Recommendation App",
           sector: "Restaurant & Dining",
           description: "Modern restaurant website with online menu, reservation system, and elegant design for exceptional dining experience.",
+        },
+        kombi: {
+          title: "Combi Service",
+          sector: "HVAC Services",
+          description: "Professional heating and cooling services website with service booking, modern design, and customer-focused functionality.",
         },
       },
     },
@@ -530,7 +539,7 @@ export const translations = {
         title: "Dönüşüm Sağlayan",
         titleHighlight: "Premium Web Siteleri",
         titleEnd: "İnşa Ediyoruz",
-        subtitle: "Büyümek isteyen markalar için UI/UX tasarım ve hızlı web geliştirme. Bir sonraki projenizi aylar değil, haftalar içinde hayata geçirin.",
+        subtitle: "Büyümek isteyen markalar için UI/UX tasarım ve hızlı web geliştirme. Bir sonraki projenizi aylar değil, günler içinde hayata geçirin.",
         cta: "Projenize Başlayın",
         viewWorks: "Projelerimizi İnceleyin",
       },
@@ -956,20 +965,29 @@ export const translations = {
       liveWebsite: "Canlı Web Sitesi",
       projects: {
         steamcraft: {
+          title: "Steam Craft SF",
           sector: "Temizlik Hizmetleri",
           description: "San Francisco'da araba koltuğu ve halı temizliğinde uzmanlaşmış premium temizlik hizmeti için modern, zarif web sitesi.",
         },
         yagiz: {
-          sector: "Tarım & Hayvancılık",
-          description: "Kalite ve sürdürülebilirliği sergileyen önde gelen bir hayvancılık ve tarım işletmesi için profesyonel kurumsal web sitesi.",
+          title: "Yagiz Besicilik",
+          sector: "Kurbanlık Hayvancılık",
+          description: "Kaliteli hayvancılık ve kurbanlık hizmetleri sunan bir işletme için profesyonel kurumsal web sitesi.",
         },
         alparslan: {
+          title: "Alparslan Tekno",
           sector: "Teknoloji & Hizmetler",
           description: "Modern tasarımla yenilikçi çözümleri ve hizmetleri sergileyen son teknoloji şirket web sitesi.",
         },
         menuoner: {
+          title: "Menü Öneri Uygulaması",
           sector: "Restoran & Yemek",
           description: "Online menü, Öneri sistemi ve olağanüstü yemek deneyimi için şık tasarıma sahip modern restoran web sitesi.",
+        },
+        kombi: {
+          title: "Kombi Servis",
+          sector: "Isıtma & Soğutma Hizmetleri",
+          description: "Servis rezervasyonu, modern tasarım ve müşteri odaklı işlevselliğe sahip profesyonel kombi ve klima servis web sitesi.",
         },
       },
     },

@@ -69,10 +69,10 @@ export default function CaseStudyPage() {
               <span className="text-sm text-muted-foreground">{project.sector}</span>
             </div>
             <h1 className="mt-4 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-              {project.title}
+              {t.works.projects[project.sector as keyof typeof t.works.projects]?.title || project.title}
             </h1>
             <p className="mt-4 max-w-2xl text-lg text-muted-foreground">
-              {project.description}
+              {t.works.projects[project.description as keyof typeof t.works.projects]?.description || project.description}
             </p>
           </FadeUp>
         </div>
@@ -88,7 +88,7 @@ export default function CaseStudyPage() {
             <div className="flex h-full items-center justify-center">
               <div className="w-64 h-44 rounded-2xl border border-white/20 bg-white/10 backdrop-blur-sm flex items-center justify-center shadow-2xl">
                 <span className="text-xl font-bold" style={{ color: project.color }}>
-                  {project.title}
+                  {t.works.projects[project.sector as keyof typeof t.works.projects]?.title || project.title}
                 </span>
               </div>
             </div>
@@ -227,10 +227,10 @@ export default function CaseStudyPage() {
                 href={`/works/${nextProject.id}`}
                 className="group mt-4 inline-flex items-center gap-3 text-3xl font-bold tracking-tight transition-colors hover:text-electric sm:text-4xl"
               >
-                {nextProject.title}
+                {t.works.projects[nextProject.sector as keyof typeof t.works.projects]?.title || nextProject.title}
                 <ArrowRight size={28} className="transition-transform group-hover:translate-x-2" />
               </Link>
-              <p className="mt-2 text-muted-foreground">{nextProject.sector}</p>
+              <p className="mt-2 text-muted-foreground">{t.works.projects[nextProject.sector as keyof typeof t.works.projects]?.sector || nextProject.sector}</p>
             </div>
           </FadeUp>
         </div>

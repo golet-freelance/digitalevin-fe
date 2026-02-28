@@ -55,6 +55,16 @@ export const projects: Project[] = [
     color: "#dc2626",
     externalUrl: "https://menuoner.digitalevin.com/",
   },
+  {
+    id: "kombi-servis",
+    title: "Kombi Servis",
+    category: "Corporate",
+    sector: "kombi",
+    result: "liveWebsite",
+    description: "kombi",
+    image: "/projects/kombiServis.png",
+    color: "#ea580c",
+  },
 ];
 
 export const categories = ["All", "Corporate"];
