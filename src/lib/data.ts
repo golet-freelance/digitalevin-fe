@@ -64,6 +64,7 @@ export const projects: Project[] = [
     description: "kombi",
     image: "/projects/kombiServis.png",
     color: "#ea580c",
+    externalUrl: "https://erikliteknik.com/",
   },
 ];
 
