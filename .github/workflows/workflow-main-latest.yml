@@ -48,7 +48,7 @@ jobs:
           script: |
             # go to the directory where the container will be run
             cd /opt/digitalevin-fe
-            
+
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/digitalevin-fe:latest
             # delete old container if exists
             docker stop digev-fe || true
@@ -59,6 +59,8 @@ jobs:
               --cpus="0.5" --memory="512m" \
               -e NODE_ENV=production \
               ${{ secrets.DOCKERHUB_USERNAME }}/digitalevin-fe:${{ steps.vars.outputs.SHORT_SHA }}
+
+            sleep 5
 
   cleanup:
     runs-on: ubuntu-latest
