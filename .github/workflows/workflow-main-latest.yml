@@ -24,20 +24,20 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      - name: Generate Short SHA
+        id: vars
+        run: echo "SHORT_SHA=${GITHUB_SHA::7}" >> $GITHUB_OUTPUT
+
       - name: Build and Push Image
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
-          # Image’i hem latest hem commit ID ile tagle
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/digitalevin-fe:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/digitalevin-fe:${GITHUB_SHA::7}
+            ${{ secrets.DOCKERHUB_USERNAME }}/digitalevin-fe:${{ steps.vars.outputs.SHORT_SHA }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          build-args: |
-            NODE_ENV=production
-            NEXT_TELEMETRY_DISABLED=1
 
       - name: Deploy on Server
         uses: appleboy/ssh-action@v1.0.3
@@ -47,7 +47,6 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /opt/digitalevin-fe
-            COMMIT_ID=${GITHUB_SHA::7}
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/digitalevin-fe:latest
             # delete old container if exists
             docker stop digev-fe || true
@@ -57,7 +56,7 @@ jobs:
             docker run -d --name digev-fe -p 5173:3000 \
               --cpus="0.5" --memory="512m" \
               -e NODE_ENV=production \
-              ${{ secrets.DOCKERHUB_USERNAME }}/digitalevin-fe:${COMMIT_ID}
+              ${{ secrets.DOCKERHUB_USERNAME }}/digitalevin-fe:${{ steps.vars.outputs.SHORT_SHA }}
 
   cleanup:
     runs-on: ubuntu-latest
@@ -72,5 +71,5 @@ jobs:
           script: |
             # Deletes all stopped containers
             docker container prune -f
-            # Deletes all stopped images
-            docker image prune -af
+            # Deletes all dangling images
+            docker image prune -f
