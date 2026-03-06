@@ -29,9 +29,15 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/digitalevin-fe:latest
+          # Image’i hem latest hem commit ID ile tagle
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/digitalevin-fe:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/digitalevin-fe:${GITHUB_SHA::7}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          build-args: |
+            NODE_ENV=production
+            NEXT_TELEMETRY_DISABLED=1
 
       - name: Deploy on Server
         uses: appleboy/ssh-action@v1.0.3
@@ -41,13 +47,30 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /opt/digitalevin-fe
-            # Pull the new image
+            COMMIT_ID=${GITHUB_SHA::7}
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/digitalevin-fe:latest
-            # Stop and remove the old container if it exists
+            # delete old container if exists
             docker stop digev-fe || true
             docker rm digev-fe || true
-            # Run the new container
-            # Note: Ensure the port mapping matches the internal port (3000)
+
+            # run new container with restricted cpu and memory
             docker run -d --name digev-fe -p 5173:3000 \
+              --cpus="0.5" --memory="512m" \
               -e NODE_ENV=production \
-              ${{ secrets.DOCKERHUB_USERNAME }}/digitalevin-fe:latest
+              ${{ secrets.DOCKERHUB_USERNAME }}/digitalevin-fe:${COMMIT_ID}
+
+  cleanup:
+    runs-on: ubuntu-latest
+    needs: deploy
+    steps:
+      - name: Cleanup Old Containers and Images
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            # Deletes all stopped containers
+            docker container prune -f
+            # Deletes all stopped images
+            docker image prune -af
