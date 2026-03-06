@@ -75,5 +75,5 @@ jobs:
           script: |
             # Deletes all stopped containers
             docker container prune -f
-            # Deletes all dangling images
-            docker image prune -f
+            # Deletes all images NOT used by running containers
+            docker image prune -af
