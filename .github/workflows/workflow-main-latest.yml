@@ -19,7 +19,5 @@ jobs:
     uses: ./.github/workflows/deploy.yml
     with:
       image_tag: ${{ needs.prepare.outputs.short_sha }}
-      docker_tags: |
-        ${{ secrets.DOCKERHUB_USERNAME }}/digitalevin-fe:latest
-        ${{ secrets.DOCKERHUB_USERNAME }}/digitalevin-fe:${{ needs.prepare.outputs.short_sha }}
+      push_latest: true
     secrets: inherit

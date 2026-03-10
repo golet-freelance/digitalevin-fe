@@ -21,5 +21,4 @@ jobs:
     uses: ./.github/workflows/deploy.yml
     with:
       image_tag: ${{ needs.prepare.outputs.version }}
-      docker_tags: ${{ secrets.DOCKERHUB_USERNAME }}/digitalevin-fe:${{ needs.prepare.outputs.version }}
     secrets: inherit

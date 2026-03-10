@@ -7,10 +7,11 @@ on:
         description: "Docker image tag to deploy"
         required: true
         type: string
-      docker_tags:
-        description: "Full Docker tags for build-push (multiline)"
-        required: true
-        type: string
+      push_latest:
+        description: "Also tag the image as latest"
+        required: false
+        type: boolean
+        default: false
     secrets:
       DOCKERHUB_USERNAME:
         required: true
@@ -43,12 +44,21 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      - name: Prepare Docker Tags
+        id: tags
+        run: |
+          TAGS="${{ secrets.DOCKERHUB_USERNAME }}/digitalevin-fe:${{ inputs.image_tag }}"
+          if [ "${{ inputs.push_latest }}" = "true" ]; then
+            TAGS="${TAGS},${{ secrets.DOCKERHUB_USERNAME }}/digitalevin-fe:latest"
+          fi
+          echo "TAGS=$TAGS" >> $GITHUB_OUTPUT
+
       - name: Build and Push Image
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
-          tags: ${{ inputs.docker_tags }}
+          tags: ${{ steps.tags.outputs.TAGS }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
