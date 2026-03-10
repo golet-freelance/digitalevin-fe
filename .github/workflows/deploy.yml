@@ -86,8 +86,13 @@ jobs:
             # pull new image BEFORE stopping the old container
             docker pull "$NEW_IMAGE"
 
+            # stop and remove old container
+            docker compose down 2>/dev/null || true
+            # fallback: remove container not managed by compose (e.g. created by docker run)
+            docker rm -f digev-fe 2>/dev/null || true
+
             # deploy with docker compose
-            DOCKER_IMAGE="$NEW_IMAGE" docker compose up -d --force-recreate
+            DOCKER_IMAGE="$NEW_IMAGE" docker compose up -d
 
             # wait for health check to pass (max 60s)
             echo "Waiting for health check..."
@@ -107,7 +112,9 @@ jobs:
             else
               echo "❌ Health check failed — rolling back"
               if [ -n "$CURRENT_IMAGE" ]; then
-                DOCKER_IMAGE="$CURRENT_IMAGE" docker compose up -d --force-recreate
+                docker compose down 2>/dev/null || true
+                docker rm -f digev-fe 2>/dev/null || true
+                DOCKER_IMAGE="$CURRENT_IMAGE" docker compose up -d
                 echo "⏪ Rolled back to: $CURRENT_IMAGE"
               fi
               exit 1
