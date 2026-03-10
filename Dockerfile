@@ -38,6 +38,6 @@ ENV PORT=3000
 ENV HOSTNAME=0.0.0.0
 
 HEALTHCHECK --interval=10s --timeout=5s --start-period=15s --retries=3 \
-    CMD wget --spider -q http://localhost:3000 || exit 1
+    CMD wget -qO /dev/null http://localhost:3000/ || exit 1
 
 CMD ["node", "server.js"]
