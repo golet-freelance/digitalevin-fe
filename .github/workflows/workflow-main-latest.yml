@@ -5,75 +5,21 @@ on:
     branches: ["main"]
 
 jobs:
-  deploy:
+  prepare:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-
+    outputs:
+      short_sha: ${{ steps.vars.outputs.SHORT_SHA }}
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Login to DockerHub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-
       - name: Generate Short SHA
         id: vars
         run: echo "SHORT_SHA=${GITHUB_SHA::7}" >> $GITHUB_OUTPUT
 
-      - name: Build and Push Image
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          push: true
-          tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/digitalevin-fe:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/digitalevin-fe:${{ steps.vars.outputs.SHORT_SHA }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-
-      - name: Deploy on Server
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.SERVER_IP }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            # go to the directory where the container will be run
-            cd /opt/digitalevin-fe
-
-            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/digitalevin-fe:latest
-            # delete old container if exists
-            docker stop digev-fe || true
-            docker rm digev-fe || true
-
-            # run new container with restricted cpu and memory
-            docker run -d --name digev-fe -p 5173:3000 \
-              --cpus="0.5" --memory="512m" \
-              -e NODE_ENV=production \
-              ${{ secrets.DOCKERHUB_USERNAME }}/digitalevin-fe:${{ steps.vars.outputs.SHORT_SHA }}
-
-            sleep 5
-
-  cleanup:
-    runs-on: ubuntu-latest
-    needs: deploy
-    steps:
-      - name: Cleanup Old Containers and Images
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.SERVER_IP }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            # Deletes all stopped containers
-            docker container prune -f
-            # Deletes all images NOT used by running containers
-            docker image prune -af
+  deploy:
+    needs: prepare
+    uses: ./.github/workflows/deploy.yml
+    with:
+      image_tag: ${{ needs.prepare.outputs.short_sha }}
+      docker_tags: |
+        ${{ secrets.DOCKERHUB_USERNAME }}/digitalevin-fe:latest
+        ${{ secrets.DOCKERHUB_USERNAME }}/digitalevin-fe:${{ needs.prepare.outputs.short_sha }}
+    secrets: inherit

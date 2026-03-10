@@ -1,18 +1,57 @@
+# dependencies
 node_modules
-npm-debug.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# build output
 .next
+out
+build
+dist
+
+# git
 .git
 .gitignore
-README.md
-.env*.local
+
+# IDE / editor
 .vscode
 .idea
-*.md
+*.sw?
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# OS
 .DS_Store
 Thumbs.db
+
+# environment & secrets
+.env
+.env.*
+!.env.example
+*.pem
+
+# documentation & misc
+docs/
+README.md
+LICENSE
+*.md
+
+# CI/CD
+.github
+
+# testing
 coverage
+__tests__
+*.test.*
+*.spec.*
 .nyc_output
+
+# cache
 .cache
-dist
-build
 .turbo
+
+# docker (prevent recursive context)
+docker-compose*.yml

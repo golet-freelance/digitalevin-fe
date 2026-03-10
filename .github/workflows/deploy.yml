@@ -1,0 +1,123 @@
+name: Reusable Deploy
+
+on:
+  workflow_call:
+    inputs:
+      image_tag:
+        description: "Docker image tag to deploy"
+        required: true
+        type: string
+      docker_tags:
+        description: "Full Docker tags for build-push (multiline)"
+        required: true
+        type: string
+    secrets:
+      DOCKERHUB_USERNAME:
+        required: true
+      DOCKERHUB_TOKEN:
+        required: true
+      SERVER_IP:
+        required: true
+      SERVER_USER:
+        required: true
+      SSH_PRIVATE_KEY:
+        required: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and Push Image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ inputs.docker_tags }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Copy Compose File to Server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "docker-compose.yml"
+          target: "/opt/digitalevin-fe"
+          overwrite: true
+
+      - name: Deploy on Server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /opt/digitalevin-fe
+
+            NEW_IMAGE="${{ secrets.DOCKERHUB_USERNAME }}/digitalevin-fe:${{ inputs.image_tag }}"
+
+            # save the current image tag for rollback
+            CURRENT_IMAGE=$(docker inspect --format='{{.Config.Image}}' digev-fe 2>/dev/null || echo "")
+
+            # pull new image BEFORE stopping the old container
+            docker pull "$NEW_IMAGE"
+
+            # deploy with docker compose
+            DOCKER_IMAGE="$NEW_IMAGE" docker compose up -d --force-recreate
+
+            # wait for health check to pass (max 60s)
+            echo "Waiting for health check..."
+            HEALTHY=false
+            for i in $(seq 1 12); do
+              sleep 5
+              STATUS=$(docker inspect --format='{{.State.Health.Status}}' digev-fe 2>/dev/null || echo "none")
+              echo "  Attempt $i/12: status=$STATUS"
+              if [ "$STATUS" = "healthy" ]; then
+                HEALTHY=true
+                break
+              fi
+            done
+
+            if [ "$HEALTHY" = "true" ]; then
+              echo "✅ Deployment successful — container is healthy"
+            else
+              echo "❌ Health check failed — rolling back"
+              if [ -n "$CURRENT_IMAGE" ]; then
+                DOCKER_IMAGE="$CURRENT_IMAGE" docker compose up -d --force-recreate
+                echo "⏪ Rolled back to: $CURRENT_IMAGE"
+              fi
+              exit 1
+            fi
+
+  cleanup:
+    runs-on: ubuntu-latest
+    needs: deploy
+    steps:
+      - name: Cleanup Old Containers and Images
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            # Deletes all stopped containers
+            docker container prune -f
+            # Deletes all images NOT used by running containers
+            docker image prune -af
