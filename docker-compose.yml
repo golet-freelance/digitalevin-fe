@@ -19,7 +19,7 @@ services:
         max-file: "30"
     healthcheck:
       test: [ "CMD", "wget", "--spider", "-q", "http://localhost:3000" ]
-      interval: 30s
+      interval: 10s
       timeout: 5s
       retries: 3
       start_period: 15s

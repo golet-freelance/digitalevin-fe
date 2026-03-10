@@ -94,13 +94,13 @@ jobs:
             # deploy with docker compose
             DOCKER_IMAGE="$NEW_IMAGE" docker compose up -d
 
-            # wait for health check to pass (max 60s)
+            # wait for health check to pass (max 90s)
             echo "Waiting for health check..."
             HEALTHY=false
-            for i in $(seq 1 12); do
+            for i in $(seq 1 18); do
               sleep 5
               STATUS=$(docker inspect --format='{{.State.Health.Status}}' digev-fe 2>/dev/null || echo "none")
-              echo "  Attempt $i/12: status=$STATUS"
+              echo "  Attempt $i/18: status=$STATUS"
               if [ "$STATUS" = "healthy" ]; then
                 HEALTHY=true
                 break
